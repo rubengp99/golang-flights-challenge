@@ -120,14 +120,14 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 }
 
 // NewService returns a new amadeus service
-func NewService(c ConfigProviderFunc) vendors.Service {
+func NewService(c ConfigProviderFunc) Service {
 	client := http.DefaultClient
 	client.Timeout = 60 * time.Second
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.DisableKeepAlives = true
 	client.Transport = transport
 
-	return &Service{
+	return Service{
 		config:     c(),
 		httpclient: client,
 	}
@@ -174,12 +174,13 @@ func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) ([]FlightOffer, e
 			BaseURL:  s.config.BaseURL,
 			Resource: "v2/shopping/flight-offers",
 			Method:   http.MethodGet,
-			Params:   url.Values{},
+			Params: url.Values{
+				"originLocationCode":      []string{params.Origin},
+				"destinationLocationCode": []string{params.Destination},
+				"departureDate":           []string{params.Date.Format("2006-01-02")},
+			},
 		}
 	)
-	request.Params.Add("originLocationCode", params.Origin)
-	request.Params.Add("destinationLocationCode", params.Destination)
-	request.Params.Add("departureDate", params.Date.Format("2006-01-02"))
 
 	if err := vendors.MakeHTTPRequest(s, request, &response); err != nil {
 		log.Printf("unable to retrieve flights from amadeus, error: %s", err)
