@@ -1,8 +1,11 @@
 package app
 
 import (
+	"encoding/json"
 	"net/http"
+	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/gorilla/schema"
 	"github.com/pkg/errors"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
@@ -25,6 +28,23 @@ func getQueryParams(value interface{}, r *http.Request) error {
 	return nil
 }
 
+func createToken(secretKey, clientID string) (string, int64, error) {
+	expiration := time.Now().Add(time.Hour * 24).Unix()
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
+		jwt.MapClaims{
+			"username": clientID,
+			"exp":      expiration,
+		})
+
+	tokenString, err := token.SignedString(secretKey)
+	if err != nil {
+		return "", expiration, err
+	}
+
+	return tokenString, expiration, nil
+}
+
 // RetrieveBestFlightsHandler handles best flights lookup
 func RetrieveBestFlightsHandler(googleflightService googleflights.Service,
 	amadeusService amadeus.Service,
@@ -36,6 +56,11 @@ func RetrieveBestFlightsHandler(googleflightService googleflights.Service,
 			return
 		}
 
+		if err := validateBestFlightsParamsRequest(params); err != nil {
+			serveResponse(newError(err.Error()), http.StatusBadRequest, w)
+			return
+		}
+
 		wf := workflow.RetrieveBestFlights(googleflightService, amadeusService, flightskyService)
 		res, err := wf(params)
 		if err != nil {
@@ -43,5 +68,39 @@ func RetrieveBestFlightsHandler(googleflightService googleflights.Service,
 			return
 		}
 		serveResponse(res, http.StatusOK, w)
+	})
+}
+
+// LoginHandler represents login handler functionality
+func LoginHandler(appCreds pkg.CrendetialsRequest, secretKey string) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var u pkg.CrendetialsRequest
+		if err := json.NewDecoder(r.Body).Decode(&u); err != nil {
+			serveResponse(newError(err.Error()), http.StatusInternalServerError, w)
+			return
+		}
+
+		if err := validateCrendetialsRequest(u); err != nil {
+			serveResponse(newError(err.Error()), http.StatusBadRequest, w)
+			return
+		}
+
+		if u.ClientID == appCreds.ClientID && u.ClientSecret == appCreds.ClientSecret {
+			token, exp, err := createToken(secretKey, u.ClientID)
+			if err != nil {
+				serveResponse(newError(err.Error()), http.StatusInternalServerError, w)
+				return
+			}
+
+			response := pkg.CredentialsResponse{
+				AccessToken: token,
+				ExpIn:       exp,
+			}
+
+			serveResponse(response, http.StatusOK, w)
+			return
+		}
+
+		serveResponse(newError("Invalid Credentials"), http.StatusUnauthorized, w)
 	})
 }

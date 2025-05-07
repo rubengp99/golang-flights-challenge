@@ -10,16 +10,19 @@ type QueryParams struct {
 	Date        time.Time `json:"date"`
 }
 
+// Location represents flight location and time
 type Location struct {
 	Timestamp time.Time `json:"timestamp"`
 	IataCode  string    `json:"iataCode"`
 }
 
+// Amount represents flight pricing
 type Amount struct {
 	Value    float64 `json:"value"`
 	Currency string  `json:"currency"`
 }
 
+// FlightOffer represents flight offer breakdown
 type FlightOffer struct {
 	Airline           string   `json:"airline"`
 	FlightNumber      string   `json:"flightNumber"`
@@ -30,7 +33,20 @@ type FlightOffer struct {
 	Price             Amount   `json:"price"`
 }
 
+// GetBestFlightOffersResponse is the response for best flights API
 type GetBestFlightOffersResponse struct {
 	Cheapest []FlightOffer `json:"cheapest"`
 	Fastest  []FlightOffer `json:"fastest"`
+}
+
+// CrendetialsRequest represents app credentials
+type CrendetialsRequest struct {
+	ClientID     string `json:"clientID"`
+	ClientSecret string `json:"ClientSecret"`
+}
+
+// CredentialsResponse represents login credentials response
+type CredentialsResponse struct {
+	AccessToken string `json:"accessToken"`
+	ExpIn       int64  `json:"expIn"`
 }

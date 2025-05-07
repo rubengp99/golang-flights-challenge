@@ -14,6 +14,7 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/flightsky"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/googleflights"
+	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
 
 // App is the representation of all the functionality exposed in this application
@@ -64,6 +65,8 @@ func New(options ...Options) App {
 		wgdone              = make(chan bool)
 		wg                  sync.WaitGroup
 		secretKey           = ""
+		clientID            = ""
+		clientSecret        = ""
 		amadeusClient       amadeus.Service
 		flightskyClient     flightsky.Service
 		googleflightsClient googleflights.Service
@@ -81,6 +84,28 @@ func New(options ...Options) App {
 			})
 			wg.Done()
 			secretKey = APIKey.SecretValue
+			channel <- err
+		},
+		func(channel chan error) {
+			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+				SecretKey:   "JOBSITY_APP_CLIENT_ID",
+				Environment: os.Getenv("STAGE"),
+				ProjectID:   o.ProjectUD,
+				SecretPath:  "/",
+			})
+			wg.Done()
+			clientID = APIKey.SecretValue
+			channel <- err
+		},
+		func(channel chan error) {
+			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+				SecretKey:   "JOBSITY_APP_CLIENT_SECRET",
+				Environment: os.Getenv("STAGE"),
+				ProjectID:   o.ProjectUD,
+				SecretPath:  "/",
+			})
+			wg.Done()
+			clientSecret = APIKey.SecretValue
 			channel <- err
 		},
 		func(channel chan error) {
@@ -119,9 +144,16 @@ func New(options ...Options) App {
 		panic(err)
 	}
 
+	// default credentials for application, simple for demo purposes
+	appCredentials := pkg.CrendetialsRequest{
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
+	}
+
 	return App{
 		SecretKey:             secretKey,
 		LogWriter:             o.LogWriter,
+		LoginHandler:          LoginHandler(appCredentials, secretKey),
 		GetBestFlightsHandler: RetrieveBestFlightsHandler(googleflightsClient, amadeusClient, flightskyClient),
 	}
 }
@@ -135,7 +167,7 @@ func (a *App) Handler() http.HandlerFunc {
 			// Modify this if we want to block origins some day
 			return true
 		},*/
-		AllowedMethods: []string{"GET", "OPTIONS"}, // this APP only includes GET APIs for demo purposes
+		AllowedMethods: []string{"GET", "POST", "OPTIONS"}, // this APP only includes GET/POST APIs for demo purposes
 		AllowedHeaders: []string{
 			"Accept",
 			"Content-Type",
@@ -155,8 +187,8 @@ func (a *App) Handler() http.HandlerFunc {
 
 	// no auth required routes
 	router.Group(func(r chi.Router) {
-		r.Use(newMiddleware(a.LogWriter, a.SecretKey, true).Wrap)
-		r.Get("/login", a.GetBestFlightsHandler)
+		r.Use(newMiddleware(a.LogWriter, a.SecretKey, false).Wrap)
+		r.Get("/login", a.LoginHandler)
 	})
 
 	return router.ServeHTTP
