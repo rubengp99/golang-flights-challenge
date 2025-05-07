@@ -126,6 +126,9 @@ func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) (FlightOffer, err
 				"fromEntityId": []string{params.Origin},
 				"toEntityId":   []string{params.Destination},
 				"departDate":   []string{params.Date.Format("2006-01-02")},
+				"adults":       []string{params.Adults},
+				"currencyCode": []string{"USD"},
+				"stops":        []string{"direct"}, // to keep things simple, only direct flights
 			},
 		}
 	)

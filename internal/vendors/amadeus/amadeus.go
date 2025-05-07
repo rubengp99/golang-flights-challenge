@@ -2,6 +2,7 @@ package amadeus
 
 // FlightOffer represents a flight offer in Amadeus API format
 type FlightOffer struct {
+	Airline                  Airline            `json:"airline,omitempty"`
 	Type                     string             `json:"type"`
 	ID                       string             `json:"id"`
 	Source                   string             `json:"source"`
@@ -27,8 +28,8 @@ type Itinerary struct {
 
 // Segment represents a segment within a given itinerary for a flight offer
 type Segment struct {
-	Departure       SegmentDeparture `json:"departure"`
-	Arrival         SegmentArrival   `json:"arrival"`
+	Departure       Location         `json:"departure"`
+	Arrival         Location         `json:"arrival"`
 	CarrierCode     string           `json:"carrierCode"`
 	Number          string           `json:"number"`
 	Aircraft        SegmentAircraft  `json:"aircraft"`
@@ -49,17 +50,10 @@ type SegmentAircraft struct {
 	Code string `json:"code"`
 }
 
-// SegmentDeparture represents the departure info for a segment in a given itinerary
-type SegmentDeparture struct {
+// SegmentDeparture represents the departure/arrival info for a segment in a given itinerary
+type Location struct {
 	IataCode string `json:"iataCode"`
 	Terminal string `json:"terminal"`
-	At       string `json:"at"`
-}
-
-// SegmentArrival represents the arrival info for a segment in a given itinerary
-type SegmentArrival struct {
-	IataCode string `json:"iataCode"`
-	Terminal string `json:"terminal,omitempty"`
 	At       string `json:"at"`
 }
 
@@ -135,4 +129,12 @@ type TravelerPricings struct {
 	TravelerType         string                 `json:"travelerType"`
 	Price                TravelerPricingsPrice  `json:"price"`
 	FareDetailsBySegment []FareDetailsBySegment `json:"fareDetailsBySegment"`
+}
+
+// Airline represents airline information for a given flight offer
+type Airline struct {
+	Type         string `json:"type"`
+	IataCode     string `json:"iataCode"`
+	IcaoCode     string `json:"icaoCode"`
+	BusinessName string `json:"businessName"`
 }

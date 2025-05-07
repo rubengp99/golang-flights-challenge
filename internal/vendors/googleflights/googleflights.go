@@ -55,10 +55,10 @@ type Itinerary struct {
 	Flights         []Flight           `json:"flights"`
 	Delay           Delay              `json:"delay"`
 	SelfTransfer    bool               `json:"self_transfer"`
-	Layovers        any                `json:"layovers"`
+	Layovers        []any              `json:"layovers"`
 	Bags            BagsInfo           `json:"bags"`
 	CarbonEmissions CarbonEmissionInfo `json:"carbon_emissions"`
-	Price           int                `json:"price"`
+	Price           float64            `json:"price"`
 	Stops           int                `json:"stops"`
 	AirlineLogo     string             `json:"airline_logo"`
 	BookingToken    string             `json:"booking_token"`
@@ -78,7 +78,7 @@ type Price struct {
 
 // PriceSummary represents
 type PriceSummary struct {
-	Current int     `json:"current"`
+	Current float64 `json:"current"`
 	Low     []Price `json:"low"`
 	Typical []Price `json:"typical"`
 	High    []Price `json:"high"`

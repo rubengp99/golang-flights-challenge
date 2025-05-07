@@ -166,7 +166,7 @@ func (s Service) Client() *http.Client {
 }
 
 // RetrieveFlightOffers retrives all available flight offers from amadeus
-func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) ([]FlightOffer, error) {
+func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) ([]FlightOffer, []Airline, error) {
 	var (
 		response APIResponse
 		offers   = []FlightOffer{}
@@ -179,6 +179,54 @@ func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) ([]FlightOffer, e
 				"originLocationCode":      []string{params.Origin},
 				"destinationLocationCode": []string{params.Destination},
 				"departureDate":           []string{params.Date.Format("2006-01-02")},
+				"adults":                  []string{params.Adults},
+				"nonStop":                 []string{"true"}, // to keep things simple, only direct flights
+				"currencyCode":            []string{"USD"},  // amadeus uses EUR as default, so we need to specify this
+			},
+		}
+	)
+
+	if err := vendors.MakeHTTPRequest(s, request, &response); err != nil {
+		log.Printf("unable to retrieve flights from amadeus, error: %s", err)
+		return nil, nil, err
+	}
+
+	if err := json.Unmarshal(response.Data, &offers); err != nil {
+		log.Printf("unable to decode flights from amadeus, error: %s", err)
+		return nil, nil, err
+	}
+
+	// unique airline codes
+	dedupeAirlineCodes := map[string]bool{}
+	airlineCodes := []string{}
+	for _, o := range offers {
+		for _, code := range o.ValidatingAirlineCodes {
+			if !dedupeAirlineCodes[code] {
+				dedupeAirlineCodes[code] = true
+				airlineCodes = append(airlineCodes, code)
+			}
+		}
+	}
+
+	airlines, err := s.retrieveAirlines(airlineCodes)
+	if err != nil {
+		log.Printf("unable to retrieve airlines from amadeus, error: %s", err)
+		return nil, nil, err
+	}
+
+	return offers, airlines, nil
+}
+
+func (s *Service) retrieveAirlines(codes []string) ([]Airline, error) {
+	var (
+		response APIResponse
+		airlines = []Airline{}
+		request  = vendors.Request{
+			BaseURL:  s.config.BaseURL,
+			Resource: "v1/reference-data",
+			Method:   http.MethodGet,
+			Params: url.Values{
+				"airlineCodes": codes,
 			},
 		}
 	)
@@ -188,10 +236,10 @@ func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) ([]FlightOffer, e
 		return nil, err
 	}
 
-	if err := json.Unmarshal(response.Data, &offers); err != nil {
+	if err := json.Unmarshal(response.Data, &airlines); err != nil {
 		log.Printf("unable to decode flights from amadeus, error: %s", err)
 		return nil, err
 	}
 
-	return offers, nil
+	return airlines, nil
 }
