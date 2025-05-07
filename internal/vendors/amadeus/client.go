@@ -45,6 +45,7 @@ type APIResponse struct {
 
 // Service is a representation of a Amadeus http client
 type Service struct {
+	token      string
 	config     vendors.Config
 	httpclient *http.Client
 }
@@ -159,11 +160,17 @@ func (s *Service) Authenticate(req *http.Request) error {
 		}
 	)
 
+	if s.token != "" {
+		req.Header.Add("Authorization", fmt.Sprintf("%s %s", "Bearer", s.token))
+		return nil
+	}
+
 	if err := vendors.MakeHTTPRequest(s, request, &response); err != nil {
 		log.Printf("unable to authenticate with amadeus, error: %s", err)
 		return err
 	}
 
+	s.token = response.AccessToken
 	req.Header.Add("Authorization", fmt.Sprintf("%s %s", response.TokenType, response.AccessToken))
 	return nil
 }

@@ -8,9 +8,9 @@ type Duration struct {
 
 // AirportInfo represents arrival and departure airport info in google flights
 type AirportInfo struct {
-	AirportName string `json:"airport_name"`
-	AirportCode string `json:"airport_code"`
-	Time        string `json:"time"`
+	Name string `json:"name"`
+	ID   string `json:"id"`
+	Time string `json:"time"`
 }
 
 // Delay represents flight delay info in google flights
@@ -27,47 +27,36 @@ type BagsInfo struct {
 
 // CarbonEmissionInfo represents information about the carbon emissions for a given airplane
 type CarbonEmissionInfo struct {
-	DifferencePercent   int `json:"difference_percent"`
-	CO2E                int `json:"CO2e"`
+	ThisFlight          int `json:"this_flight"`
 	TypicalForThisRoute int `json:"typical_for_this_route"`
-	Higher              int `json:"higher"`
+	DifferencePercent   int `json:"difference_percent"`
 }
 
 // Flight represents a breakdown of a flight information
 type Flight struct {
 	DepartureAirport AirportInfo `json:"departure_airport"`
 	ArrivalAirport   AirportInfo `json:"arrival_airport"`
-	Duration         Duration    `json:"duration"`
+	Duration         int         `json:"duration"`
+	Airplane         string      `json:"airplane"`
 	Airline          string      `json:"airline"`
 	AirlineLogo      string      `json:"airline_logo"`
+	TravelClass      string      `json:"travel_class"`
 	FlightNumber     string      `json:"flight_number"`
-	Aircraft         string      `json:"aircraft"`
-	Seat             string      `json:"seat"`
 	Legroom          string      `json:"legroom"`
 	Extensions       []string    `json:"extensions"`
+	Overnight        bool        `json:"overnight,omitempty"`
 }
 
 // Itinerary represents a breakdown of a flight itinerary
 type Itinerary struct {
-	DepartureTime   string             `json:"departure_time"`
-	ArrivalTime     string             `json:"arrival_time"`
-	Duration        Duration           `json:"duration"`
 	Flights         []Flight           `json:"flights"`
-	Delay           Delay              `json:"delay"`
-	SelfTransfer    bool               `json:"self_transfer"`
 	Layovers        []any              `json:"layovers"`
-	Bags            BagsInfo           `json:"bags"`
+	TotalDuration   int                `json:"total_duration"`
 	CarbonEmissions CarbonEmissionInfo `json:"carbon_emissions"`
 	Price           float64            `json:"price"`
-	Stops           int                `json:"stops"`
+	Type            string             `json:"type"`
 	AirlineLogo     string             `json:"airline_logo"`
 	BookingToken    string             `json:"booking_token"`
-}
-
-// Itineraries represents a list of itineraries in google flights apis
-type Itineraries struct {
-	TopFlights   []Itinerary `json:"topFlights"`
-	OtherFlights []Itinerary `json:"otherFlights"`
 }
 
 // Price represents a price for historical record
@@ -78,10 +67,10 @@ type Price struct {
 
 // PriceSummary represents
 type PriceSummary struct {
-	Current float64 `json:"current"`
-	Low     []Price `json:"low"`
-	Typical []Price `json:"typical"`
-	High    []Price `json:"high"`
+	LowestPrice       int     `json:"lowest_price"`
+	PriceLevel        string  `json:"price_level"`
+	TypicalPriceRange []int   `json:"typical_price_range"`
+	PriceHistory      [][]int `json:"price_history"`
 }
 
 // History represents a timespan in historical price summarry
@@ -90,14 +79,10 @@ type History struct {
 	Value int   `json:"value"`
 }
 
-// PriceHistory represents historical pricing for the given flight search criteria
-type PriceHistory struct {
-	Summary PriceSummary `json:"summary"`
-	History []History    `json:"history"`
-}
-
 // FlightOffer represents a list of flights in google flights api
 type FlightOffer struct {
-	Itineraries  Itineraries  `json:"itineraries"`
-	PriceHistory PriceHistory `json:"priceHistory"`
+	BestFlights   []Itinerary  `json:"best_flights"`
+	OtherFlights  []Itinerary  `json:"other_flights"`
+	PriceInsights PriceSummary `json:"price_insights"`
+	Airports      []any        `json:"airports"`
 }

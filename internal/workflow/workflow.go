@@ -1,6 +1,7 @@
 package workflow
 
 import (
+	"log"
 	"sync"
 
 	"github.com/rubengp99/golang-flights-challenge/internal/mapping"
@@ -31,6 +32,7 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 				if err != nil {
 					channel <- err
 				}
+				log.Printf("found %v flights with google flights", len(flightOffers))
 				wg.Done()
 			},
 			func(channel chan error) {
@@ -39,6 +41,7 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 				if err != nil {
 					channel <- err
 				}
+				log.Printf("found %v flights with amadeus", len(flightOffers))
 				wg.Done()
 			},
 			func(channel chan error) {
@@ -47,6 +50,7 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 				if err != nil {
 					channel <- err
 				}
+				log.Printf("found %v flights with flightsky", len(flightOffers))
 				wg.Done()
 			},
 		}

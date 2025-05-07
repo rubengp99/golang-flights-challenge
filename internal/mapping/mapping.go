@@ -12,7 +12,8 @@ import (
 )
 
 const (
-	ISO8601TimeFormat = "2006-01-02T15:04:05"
+	ISO8601TimeFormat             = "2006-01-02T15:04:05"
+	GoogleFlightISO8601TimeFormat = "2006-01-02 15:04"
 )
 
 // GoogleflightsToPkgFlights maps google flights response format to a generic pkg flight offer one
@@ -20,18 +21,18 @@ func GoogleflightsToPkgFlights(c chan error, gflights googleflights.FlightOffer)
 	results := []pkg.FlightOffer{}
 
 	itineraries := []googleflights.Itinerary{}
-	itineraries = append(itineraries, gflights.Itineraries.TopFlights...)
-	itineraries = append(itineraries, gflights.Itineraries.OtherFlights...)
+	itineraries = append(itineraries, gflights.BestFlights...)
+	itineraries = append(itineraries, gflights.OtherFlights...)
 
 	for _, itinerary := range itineraries {
 		for _, flight := range itinerary.Flights {
-			arrivalTime, err := time.Parse(ISO8601TimeFormat, flight.ArrivalAirport.Time)
+			arrivalTime, err := time.Parse(GoogleFlightISO8601TimeFormat, flight.ArrivalAirport.Time)
 			if err != nil {
 				c <- err
 				return []pkg.FlightOffer{}
 			}
 
-			departureTime, err := time.Parse(ISO8601TimeFormat, flight.DepartureAirport.Time)
+			departureTime, err := time.Parse(GoogleFlightISO8601TimeFormat, flight.DepartureAirport.Time)
 			if err != nil {
 				c <- err
 				return []pkg.FlightOffer{}
@@ -42,13 +43,13 @@ func GoogleflightsToPkgFlights(c chan error, gflights googleflights.FlightOffer)
 				FlightNumber: flight.FlightNumber,
 				Arrival: pkg.Location{
 					Timestamp: arrivalTime,
-					IataCode:  flight.DepartureAirport.AirportCode,
+					IataCode:  flight.DepartureAirport.ID,
 				},
 				Departure: pkg.Location{
 					Timestamp: departureTime,
-					IataCode:  flight.DepartureAirport.AirportCode,
+					IataCode:  flight.DepartureAirport.ID,
 				},
-				DurationInMinutes: float64(flight.Duration.Raw),
+				DurationInMinutes: float64(flight.Duration),
 				Price: pkg.Amount{
 					Value:    itinerary.Price,
 					Currency: "USD",
