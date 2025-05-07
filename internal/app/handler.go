@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"net/http"
+	"reflect"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -20,6 +21,14 @@ func getQueryParams(value interface{}, r *http.Request) error {
 	// decoder lookup for values on the json tag, instead of the default schema tag
 	decoder.SetAliasTag("json")
 	decoder.IgnoreUnknownKeys(true)
+
+	// for demo purposes, we need to simplify our date parsing to ignore time
+	decoder.RegisterConverter(time.Time{}, func(value string) reflect.Value {
+		if v, err := time.Parse("2006-01-02", value); err == nil {
+			return reflect.ValueOf(v)
+		}
+		return reflect.Value{} // this is the same as the private const invalidType
+	})
 
 	if err := decoder.Decode(value, r.URL.Query()); err != nil {
 		return errors.Wrap(err, "handler - failed to decode query params")

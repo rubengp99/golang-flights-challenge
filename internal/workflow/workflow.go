@@ -28,20 +28,26 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 			func(channel chan error) {
 				flights, err := googleflightService.RetrieveFlightOffers(params)
 				flightOffers = append(flightOffers, mapping.GoogleflightsToPkgFlights(errors, flights)...)
+				if err != nil {
+					channel <- err
+				}
 				wg.Done()
-				channel <- err
 			},
 			func(channel chan error) {
 				flights, airlines, err := amadeusService.RetrieveFlightOffers(params)
 				flightOffers = append(flightOffers, mapping.AmadeusToPkgFlights(errors, flights, airlines)...)
+				if err != nil {
+					channel <- err
+				}
 				wg.Done()
-				channel <- err
 			},
 			func(channel chan error) {
 				flights, err := flightskyService.RetrieveFlightOffers(params)
 				flightOffers = append(flightOffers, mapping.FlightskyToPkgFlights(errors, flights)...)
+				if err != nil {
+					channel <- err
+				}
 				wg.Done()
-				channel <- err
 			},
 		}
 

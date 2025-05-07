@@ -109,11 +109,11 @@ func New(options ...Options) App {
 				ProjectID:   o.ProjectUD,
 				SecretPath:  "/",
 			})
-			wg.Done()
 			clientSecret = APIKey.SecretValue
 			if err != nil {
 				channel <- err
 			}
+			wg.Done()
 		},
 		func(channel chan error) {
 			googleflightsClient = googleflights.NewService(o.ProvideGoogleflightsConfig, infisicalClient, o.ProjectUD)

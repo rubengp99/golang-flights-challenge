@@ -90,11 +90,11 @@ func IsAuthorized(secretKey string) func(h http.Handler) http.Handler {
 			tokenStr = tokenStr[len("Bearer "):]
 
 			token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-				return secretKey, nil
+				return []byte(secretKey), nil
 			})
 
 			if err != nil {
-				log.Println("error", err.Error())
+				log.Println("verify error", err.Error())
 				werr := newError(err.Error())
 				serveResponse(werr, http.StatusInternalServerError, w)
 				return
