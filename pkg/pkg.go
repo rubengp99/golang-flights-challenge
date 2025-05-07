@@ -8,3 +8,5 @@ type QueryParams struct {
 	Destination string    `json:"destination"`
 	Date        time.Time `json:"date"`
 }
+
+type FlightOffer struct{}

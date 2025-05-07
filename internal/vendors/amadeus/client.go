@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"sync"
 	"time"
 
@@ -65,7 +66,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 			func(channel chan error) {
 				clientID, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 					SecretKey:   "AMADEUS_CLIENT_ID",
-					Environment: "dev",
+					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
 					SecretPath:  "/",
 				})
@@ -76,7 +77,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 			func(channel chan error) {
 				clientID, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 					SecretKey:   "AMADEUS_SECRET_ID",
-					Environment: "dev",
+					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
 					SecretPath:  "/",
 				})
@@ -87,7 +88,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 			func(channel chan error) {
 				clientID, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 					SecretKey:   "AMADEUS_BASE_URL",
-					Environment: "dev",
+					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
 					SecretPath:  "/",
 				})

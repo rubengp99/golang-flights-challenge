@@ -1,4 +1,4 @@
-package googleflights
+package flightsky
 
 import (
 	"encoding/json"
@@ -15,13 +15,12 @@ import (
 )
 
 type APIResponse struct {
-	Status    bool            `json:"status"`
-	Message   string          `json:"message"`
-	Timestamp int64           `json:"timestamp"`
-	Data      json.RawMessage `json:"data"`
+	Status  bool            `json:"status"`
+	Message string          `json:"message"`
+	Data    json.RawMessage `json:"data"`
 }
 
-// Service is a representation of a google flights http client
+// Service is a representation of a flights sky http client
 type Service struct {
 	config     vendors.Config
 	httpclient *http.Client
@@ -55,7 +54,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 			},
 			func(channel chan error) {
 				clientID, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
-					SecretKey:   "GOOGLE_FLIGHTS_BASE_URL",
+					SecretKey:   "FLIGHTS_SKY_BASE_URL",
 					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
 					SecretPath:  "/",
@@ -88,7 +87,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 	}
 }
 
-// NewService returns a new google flights service
+// NewService returns a new flights sky service
 func NewService(c ConfigProviderFunc) Service {
 	client := http.DefaultClient
 	client.Timeout = 60 * time.Second
@@ -114,31 +113,30 @@ func (s Service) Client() *http.Client {
 	return s.httpclient
 }
 
-// RetrieveFlightOffers retrives all available flight offers from google flights
+// RetrieveFlightOffers retrives all available flight offers from flights sky
 func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) (FlightOffer, error) {
 	var (
 		response APIResponse
 		offers   = FlightOffer{}
 		request  = vendors.Request{
-
 			BaseURL:  s.config.BaseURL,
-			Resource: "api/v1/searchFlights",
+			Resource: "flights/search-one-way",
 			Method:   http.MethodGet,
 			Params: url.Values{
-				"departure_id":  []string{params.Origin},
-				"arrival_id":    []string{params.Destination},
-				"outbound_date": []string{params.Date.Format("2006-01-02")},
+				"fromEntityId": []string{params.Origin},
+				"toEntityId":   []string{params.Destination},
+				"departDate":   []string{params.Date.Format("2006-01-02")},
 			},
 		}
 	)
 
 	if err := vendors.MakeHTTPRequest(s, request, &response); err != nil {
-		log.Printf("unable to retrieve flights from google flights, error: %s", err)
+		log.Printf("unable to retrieve flights from flights sky, error: %s", err)
 		return FlightOffer{}, err
 	}
 
 	if err := json.Unmarshal(response.Data, &offers); err != nil {
-		log.Printf("unable to decode flights from google flights, error: %s", err)
+		log.Printf("unable to decode flights from flights sky, error: %s", err)
 		return FlightOffer{}, err
 	}
 
