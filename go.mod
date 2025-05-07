@@ -11,6 +11,7 @@ require (
 	github.com/gorilla/schema v1.4.1
 	github.com/infisical/go-sdk v0.5.92
 	github.com/pkg/errors v0.9.1
+	github.com/serpapi/google-search-results-golang v0.0.0-20240325113416-ec93f510648e
 )
 
 require (

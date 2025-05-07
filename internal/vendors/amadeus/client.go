@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"sync"
 	"time"
 
@@ -145,14 +146,15 @@ func (s *Service) Authenticate(req *http.Request) error {
 	var (
 		response AuthResponse
 		request  = vendors.Request{
-			SkipAuth: true,
-			BaseURL:  s.config.BaseURL,
-			Resource: "v1/security/oauth2/token",
-			Method:   http.MethodPost,
+			ContentType: vendors.ContentTypeURLEncoded,
+			SkipAuth:    true,
+			BaseURL:     s.config.BaseURL,
+			Resource:    "v1/security/oauth2/token",
+			Method:      http.MethodPost,
 			Payload: url.Values{
 				"client_id":     []string{s.config.ClientID},
 				"client_secret": []string{s.config.ClientSecret},
-				"grant_type":    []string{s.config.ClientID},
+				"grant_type":    []string{"client_credentials"},
 			},
 		}
 	)
@@ -229,10 +231,10 @@ func (s *Service) retrieveAirlines(codes []string) ([]Airline, error) {
 		airlines = []Airline{}
 		request  = vendors.Request{
 			BaseURL:  s.config.BaseURL,
-			Resource: "v1/reference-data",
+			Resource: "v1/reference-data/airlines",
 			Method:   http.MethodGet,
 			Params: url.Values{
-				"airlineCodes": codes,
+				"airlineCodes": []string{strings.Join(codes, ",")},
 			},
 		}
 	)

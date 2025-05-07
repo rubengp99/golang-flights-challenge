@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"sync"
 	"time"
@@ -12,13 +11,36 @@ import (
 	infisical "github.com/infisical/go-sdk"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors"
 	"github.com/rubengp99/golang-flights-challenge/pkg"
+	g "github.com/serpapi/google-search-results-golang"
 )
 
+type SearchMetadata struct {
+	ID               string  `json:"id"`
+	Status           string  `json:"status"`
+	JSONEndpoint     string  `json:"json_endpoint"`
+	CreatedAt        string  `json:"created_at"`
+	ProcessedAt      string  `json:"processed_at"`
+	GoogleFlightsURL string  `json:"google_flights_url"`
+	RawHTMLFile      string  `json:"raw_html_file"`
+	PrettifyHTMLFile string  `json:"prettify_html_file"`
+	TotalTimeTaken   float64 `json:"total_time_taken"`
+}
+
+type SearchParameters struct {
+	Engine       string `json:"engine"`
+	Hl           string `json:"hl"`
+	Gl           string `json:"gl"`
+	DepartureID  string `json:"departure_id"`
+	ArrivalID    string `json:"arrival_id"`
+	OutboundDate string `json:"outbound_date"`
+	ReturnDate   string `json:"return_date"`
+	Currency     string `json:"currency"`
+}
+
 type APIResponse struct {
-	Status    bool            `json:"status"`
-	Message   string          `json:"message"`
-	Timestamp int64           `json:"timestamp"`
-	Data      json.RawMessage `json:"data"`
+	FlightOffer
+	SearchMetadata   SearchMetadata   `json:"search_metadata"`
+	SearchParameters SearchParameters `json:"search_parameters"`
 }
 
 // Service is a representation of a google flights http client
@@ -44,7 +66,7 @@ func DefaultConfigFromSecretsManager() ConfigProviderFunc {
 		secrets := []func(channel chan error){
 			func(channel chan error) {
 				APIKey, err := infclient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
-					SecretKey:   "RAPID_API_KEY",
+					SecretKey:   "SERPAPI_API_KEY",
 					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
 					SecretPath:  "/",
@@ -108,8 +130,7 @@ func NewService(c ConfigProviderFunc, infclient infisical.InfisicalClientInterfa
 
 // Authenticate generates all the necessary http headers and settings required by our integration in order to authorize our requests
 func (s *Service) Authenticate(req *http.Request) error {
-	req.Header.Add("x-rapidapi-key", s.config.APIKey)
-	req.Header.Add("x-rapidapi-host", s.config.BaseURL)
+	// auth on query params here
 	return nil
 }
 
@@ -122,32 +143,36 @@ func (s Service) Client() *http.Client {
 func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) (FlightOffer, error) {
 	var (
 		response APIResponse
-		offers   = FlightOffer{}
-		request  = vendors.Request{
-
-			BaseURL:  s.config.BaseURL,
-			Resource: "api/v1/searchFlights",
-			Method:   http.MethodGet,
-			Params: url.Values{
-				"departure_id":  []string{params.Origin},
-				"arrival_id":    []string{params.Destination},
-				"outbound_date": []string{params.Date.Format("2006-01-02")},
-				"adults":        []string{params.Adults},
-				"stops":         []string{"direct"}, // to keep things simple, only direct flights
-				"currencyCode":  []string{"USD"},
-			},
+		request  = map[string]string{
+			"engine":        "google_flights",
+			"departure_id":  params.Origin,
+			"arrival_id":    params.Destination,
+			"outbound_date": params.Date.Format("2006-01-02"),
+			"adults":        params.Adults,
+			"stops":         "direct", // to keep things simple, only direct flights
+			"currencyCode":  "USD",
+			"type":          "2", // one way
+			"hl":            "en",
 		}
 	)
 
-	if err := vendors.MakeHTTPRequest(s, request, &response); err != nil {
+	search := g.NewGoogleSearch(request, s.config.APIKey)
+	results, err := search.GetJSON()
+	if err != nil {
 		log.Printf("unable to retrieve flights from google flights, error: %s", err)
 		return FlightOffer{}, err
 	}
 
-	if err := json.Unmarshal(response.Data, &offers); err != nil {
-		log.Printf("unable to decode flights from google flights, error: %s", err)
+	bodyBytes, err := json.Marshal(results)
+	if err != nil {
+		log.Printf("unable to marshal flights from google flights, error: %s", err)
 		return FlightOffer{}, err
 	}
 
-	return offers, nil
+	if err := json.Unmarshal(bodyBytes, &response); err != nil {
+		log.Printf("unable to marshal flights from google flights, error: %s", err)
+		return FlightOffer{}, err
+	}
+
+	return response.FlightOffer, nil
 }

@@ -93,7 +93,7 @@ func MakeHTTPRequest(v Service, request Request, resp any) error {
 		return errors.Wrapf(err, "client - unable to generate payload for content %s", request.ContentType)
 	}
 
-	log.Printf("making request to route %s with payload %s", request.URL(), request.Payload)
+	log.Printf("making request to route %s", request.URL())
 
 	// generate a new http request object
 	req, err := http.NewRequest(request.Method, request.URL(), body)

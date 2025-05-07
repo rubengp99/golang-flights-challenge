@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	ISO8601TimeFormat = "2006-01-02T15:04:05.000Z"
+	ISO8601TimeFormat = "2006-01-02T15:04:05"
 )
 
 // GoogleflightsToPkgFlights maps google flights response format to a generic pkg flight offer one
@@ -193,21 +193,19 @@ func FlightskyToPkgFlights(c chan error, fsflights flightsky.FlightOffer) []pkg.
 
 func NewBestFlightsOffersResponse(flights ...pkg.FlightOffer) pkg.GetBestFlightOffersResponse {
 	response := pkg.GetBestFlightOffersResponse{
-		Cheapest: make([]pkg.FlightOffer, 0),
-		Fastest:  make([]pkg.FlightOffer, 0),
+		Cheapest: flights,
+		Fastest:  flights,
 	}
 
 	// sort fastests
-	sort.SliceStable(flights, func(i, j int) bool {
-		return flights[i].DurationInMinutes < flights[j].DurationInMinutes
+	sort.SliceStable(response.Fastest, func(i, j int) bool {
+		return response.Fastest[i].DurationInMinutes < response.Fastest[j].DurationInMinutes
 	})
-	copy(response.Fastest, flights)
 
 	// sort cheapest
-	sort.SliceStable(flights, func(i, j int) bool {
-		return flights[i].Price.Value < flights[j].Price.Value
+	sort.SliceStable(response.Cheapest, func(i, j int) bool {
+		return response.Cheapest[i].Price.Value < response.Cheapest[j].Price.Value
 	})
-	copy(response.Fastest, flights)
 
 	return response
 }

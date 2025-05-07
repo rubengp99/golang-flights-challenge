@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"sync"
 	"time"
 
@@ -108,7 +109,8 @@ func NewService(c ConfigProviderFunc, infclient infisical.InfisicalClientInterfa
 // Authenticate generates all the necessary http headers and settings required by our integration in order to authorize our requests
 func (s *Service) Authenticate(req *http.Request) error {
 	req.Header.Add("x-rapidapi-key", s.config.APIKey)
-	req.Header.Add("x-rapidapi-host", s.config.BaseURL)
+	// rapid api complains about http://, we only require the plain domain
+	req.Header.Add("x-rapidapi-host", strings.ReplaceAll(s.config.BaseURL, "https://", ""))
 	return nil
 }
 
