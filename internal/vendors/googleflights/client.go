@@ -28,11 +28,11 @@ type Service struct {
 }
 
 // ConfigProviderFunc dinari config provider
-type ConfigProviderFunc func() vendors.Config
+type ConfigProviderFunc func(infclient infisical.InfisicalClientInterface, projectID string) vendors.Config
 
 // DefaultConfigFromSecretsManager retrieves config from secrets manager
-func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectID string) ConfigProviderFunc {
-	return func() vendors.Config {
+func DefaultConfigFromSecretsManager() ConfigProviderFunc {
+	return func(infclient infisical.InfisicalClientInterface, projectID string) vendors.Config {
 		var (
 			c      = vendors.Config{}
 			errors = make(chan error)
@@ -43,7 +43,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 		// retrieve all secrets from infisical
 		secrets := []func(channel chan error){
 			func(channel chan error) {
-				APIKey, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+				APIKey, err := infclient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 					SecretKey:   "RAPID_API_KEY",
 					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
@@ -54,7 +54,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 				channel <- err
 			},
 			func(channel chan error) {
-				clientID, err := client.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+				clientID, err := infclient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 					SecretKey:   "GOOGLE_FLIGHTS_BASE_URL",
 					Environment: os.Getenv("STAGE"),
 					ProjectID:   projectID,
@@ -89,7 +89,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 }
 
 // NewService returns a new google flights service
-func NewService(c ConfigProviderFunc) Service {
+func NewService(c ConfigProviderFunc, infclient infisical.InfisicalClientInterface, projectID string) Service {
 	client := http.DefaultClient
 	client.Timeout = 60 * time.Second
 	transport := http.DefaultTransport.(*http.Transport).Clone()
@@ -97,7 +97,7 @@ func NewService(c ConfigProviderFunc) Service {
 	client.Transport = transport
 
 	return Service{
-		config:     c(),
+		config:     c(infclient, projectID),
 		httpclient: client,
 	}
 }

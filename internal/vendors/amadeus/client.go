@@ -49,11 +49,11 @@ type Service struct {
 }
 
 // ConfigProviderFunc dinari config provider
-type ConfigProviderFunc func() vendors.Config
+type ConfigProviderFunc func(client infisical.InfisicalClientInterface, projectID string) vendors.Config
 
 // DefaultConfigFromSecretsManager retrieves config from secrets manager
-func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectID string) ConfigProviderFunc {
-	return func() vendors.Config {
+func DefaultConfigFromSecretsManager() ConfigProviderFunc {
+	return func(client infisical.InfisicalClientInterface, projectID string) vendors.Config {
 		var (
 			c      = vendors.Config{}
 			errors = make(chan error)
@@ -121,7 +121,7 @@ func DefaultConfigFromSecretsManager(client *infisical.InfisicalClient, projectI
 }
 
 // NewService returns a new amadeus service
-func NewService(c ConfigProviderFunc) Service {
+func NewService(c ConfigProviderFunc, infclient infisical.InfisicalClientInterface, projectID string) Service {
 	client := http.DefaultClient
 	client.Timeout = 60 * time.Second
 	transport := http.DefaultTransport.(*http.Transport).Clone()
@@ -129,7 +129,7 @@ func NewService(c ConfigProviderFunc) Service {
 	client.Transport = transport
 
 	return Service{
-		config:     c(),
+		config:     c(infclient, projectID),
 		httpclient: client,
 	}
 }
