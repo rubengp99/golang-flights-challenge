@@ -27,7 +27,8 @@ func newError(msg string) Error {
 	}
 }
 
-type middleware []func(http.Handler) http.Handler
+type middleware []filter
+type filter func(http.Handler) http.Handler
 
 func newMiddleware(logOut io.Writer, secretKey string, auth bool) middleware {
 	log.SetOutput(logOut)
@@ -46,15 +47,15 @@ func newMiddleware(logOut io.Writer, secretKey string, auth bool) middleware {
 
 // Wrap applies all middlewares to a base handler
 func (m middleware) Wrap(base http.Handler) http.Handler {
-	return doWrap(base, m)
+	return doWrap(base, m...)
 }
 
-func doWrap(base http.Handler, middleware middleware) http.Handler {
+func doWrap(base http.Handler, middleware ...filter) http.Handler {
 	if len(middleware) == 0 {
 		return base
 	}
 	first := middleware[0]
-	remaining := doWrap(base, middleware[1:])
+	remaining := doWrap(base, middleware[1:]...)
 	return first(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		remaining.ServeHTTP(w, r)
 	}))
@@ -69,7 +70,9 @@ func RequestLogger(h http.Handler) http.Handler {
 		}
 
 		// prevent auth token logging
-		requestLog = strings.ReplaceAll(requestLog, r.Header.Get("Authorization"), "<sensitive>")
+		if r.Header.Get("Authorization") != "" {
+			requestLog = strings.ReplaceAll(requestLog, r.Header.Get("Authorization"), "<sensitive>")
+		}
 		log.Println("Request received: ", requestLog)
 		h.ServeHTTP(w, r)
 	})
@@ -116,6 +119,7 @@ func SecureRequest(h http.Handler) http.Handler {
 		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubdomains; preload")
 		w.Header().Set("Cache-Control", "no-store")
 		w.Header().Set("Pragma", "no-cache")
+		h.ServeHTTP(w, r)
 	})
 }
 

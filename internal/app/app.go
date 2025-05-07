@@ -19,11 +19,10 @@ import (
 
 // App is the representation of all the functionality exposed in this application
 type App struct {
-	LogWriter                   io.Writer
-	SecretKey                   string
-	GetBestFlightsHandler       http.HandlerFunc
-	GetLocationIATACodesHandler http.HandlerFunc
-	LoginHandler                http.HandlerFunc
+	LogWriter             io.Writer
+	SecretKey             string
+	GetBestFlightsHandler http.HandlerFunc
+	LoginHandler          http.HandlerFunc
 }
 
 // Options is a type for application options to modify the app
@@ -52,7 +51,9 @@ func New(options ...Options) App {
 		ProvideFlightskyConfig:     flightsky.DefaultConfigFromSecretsManager(),
 		ProvideGoogleflightsConfig: googleflights.DefaultConfigFromSecretsManager(),
 		ProvideInfisicalClient: func() infisical.InfisicalClientInterface {
-			return infisical.NewInfisicalClient(context.Background(), infisical.Config{})
+			client := infisical.NewInfisicalClient(context.Background(), infisical.Config{})
+			client.Auth().SetAccessToken(os.Getenv("INFISICAL_TOKEN"))
+			return client
 		},
 	}
 
@@ -84,7 +85,9 @@ func New(options ...Options) App {
 			})
 			wg.Done()
 			secretKey = APIKey.SecretValue
-			channel <- err
+			if err != nil {
+				channel <- err
+			}
 		},
 		func(channel chan error) {
 			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
@@ -95,7 +98,9 @@ func New(options ...Options) App {
 			})
 			wg.Done()
 			clientID = APIKey.SecretValue
-			channel <- err
+			if err != nil {
+				channel <- err
+			}
 		},
 		func(channel chan error) {
 			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
@@ -106,22 +111,21 @@ func New(options ...Options) App {
 			})
 			wg.Done()
 			clientSecret = APIKey.SecretValue
-			channel <- err
+			if err != nil {
+				channel <- err
+			}
 		},
 		func(channel chan error) {
 			googleflightsClient = googleflights.NewService(o.ProvideGoogleflightsConfig, infisicalClient, o.ProjectUD)
 			wg.Done()
-			channel <- nil
 		},
 		func(channel chan error) {
 			amadeusClient = amadeus.NewService(o.ProvideAmadeusConfig, infisicalClient, o.ProjectUD)
 			wg.Done()
-			channel <- nil
 		},
 		func(channel chan error) {
 			flightskyClient = flightsky.NewService(o.ProvideFlightskyConfig, infisicalClient, o.ProjectUD)
 			wg.Done()
-			channel <- nil
 		},
 	}
 
@@ -188,7 +192,7 @@ func (a *App) Handler() http.HandlerFunc {
 	// no auth required routes
 	router.Group(func(r chi.Router) {
 		r.Use(newMiddleware(a.LogWriter, a.SecretKey, false).Wrap)
-		r.Get("/login", a.LoginHandler)
+		r.Post("/login", a.LoginHandler)
 	})
 
 	return router.ServeHTTP

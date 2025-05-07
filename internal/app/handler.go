@@ -37,7 +37,7 @@ func createToken(secretKey, clientID string) (string, int64, error) {
 			"exp":      expiration,
 		})
 
-	tokenString, err := token.SignedString(secretKey)
+	tokenString, err := token.SignedString([]byte(secretKey))
 	if err != nil {
 		return "", expiration, err
 	}

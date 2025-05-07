@@ -51,7 +51,9 @@ func DefaultConfigFromSecretsManager() ConfigProviderFunc {
 				})
 				wg.Done()
 				c.APIKey = APIKey.SecretValue
-				channel <- err
+				if err != nil {
+					channel <- err
+				}
 			},
 			func(channel chan error) {
 				clientID, err := infclient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
@@ -62,7 +64,9 @@ func DefaultConfigFromSecretsManager() ConfigProviderFunc {
 				})
 				wg.Done()
 				c.BaseURL = clientID.SecretValue
-				channel <- err
+				if err != nil {
+					channel <- err
+				}
 			},
 		}
 
