@@ -193,20 +193,22 @@ func FlightskyToPkgFlights(c chan error, fsflights flightsky.FlightOffer) []pkg.
 }
 
 func NewBestFlightsOffersResponse(flights ...pkg.FlightOffer) pkg.GetBestFlightOffersResponse {
-	response := pkg.GetBestFlightOffersResponse{
-		Cheapest: flights,
-		Fastest:  flights,
+	// Make independent copies of the flights slice
+	cheapest := append([]pkg.FlightOffer(nil), flights...)
+	fastest := append([]pkg.FlightOffer(nil), flights...)
+
+	// Sort fastest
+	sort.SliceStable(fastest, func(i, j int) bool {
+		return fastest[i].DurationInMinutes < fastest[j].DurationInMinutes
+	})
+
+	// Sort cheapest
+	sort.SliceStable(cheapest, func(i, j int) bool {
+		return cheapest[i].Price.Value < cheapest[j].Price.Value
+	})
+
+	return pkg.GetBestFlightOffersResponse{
+		Cheapest: cheapest,
+		Fastest:  fastest,
 	}
-
-	// sort fastests
-	sort.SliceStable(response.Fastest, func(i, j int) bool {
-		return response.Fastest[i].DurationInMinutes < response.Fastest[j].DurationInMinutes
-	})
-
-	// sort cheapest
-	sort.SliceStable(response.Cheapest, func(i, j int) bool {
-		return response.Cheapest[i].Price.Value < response.Cheapest[j].Price.Value
-	})
-
-	return response
 }

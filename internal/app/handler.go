@@ -16,6 +16,12 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
 
+func defaultOptionsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+	w.Header().Set("Access-Control-Max-Age", "600")
+	serveResponse(nil, http.StatusNoContent, w)
+}
+
 func getQueryParams(value interface{}, r *http.Request) error {
 	decoder := schema.NewDecoder()
 	// decoder lookup for values on the json tag, instead of the default schema tag

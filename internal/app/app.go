@@ -195,5 +195,8 @@ func (a *App) Handler() http.HandlerFunc {
 		r.Post("/login", a.LoginHandler)
 	})
 
+	router.Options("/flights/search", defaultOptionsHandler)
+	router.Options("/login", defaultOptionsHandler)
+
 	return router.ServeHTTP
 }
