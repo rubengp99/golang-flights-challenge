@@ -161,7 +161,7 @@ func (s *Service) Authenticate(req *http.Request) error {
 	)
 
 	if s.token != "" {
-		req.Header.Add("Authorization", fmt.Sprintf("%s %s", "Bearer", s.token))
+		req.Header.Set("Authorization", s.token)
 		return nil
 	}
 
@@ -170,8 +170,8 @@ func (s *Service) Authenticate(req *http.Request) error {
 		return err
 	}
 
-	s.token = response.AccessToken
-	req.Header.Add("Authorization", fmt.Sprintf("%s %s", response.TokenType, response.AccessToken))
+	s.token = fmt.Sprintf("%s %s", response.TokenType, response.AccessToken)
+	req.Header.Set("Authorization", s.token)
 	return nil
 }
 

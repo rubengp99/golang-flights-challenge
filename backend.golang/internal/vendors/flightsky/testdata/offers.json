@@ -1,0 +1,962 @@
+{
+    "context": {
+        "sessionId": "KLUv_SCN1QMA0ogdHbDrjPgkCVzwlDe7ySgc_6ewMklJK31nqSK-ASwOzhMgNdbp42sqqbjPbu7jh_t11uVIuZR1karKUgrAeJuGXRnR8kVmirObeWu7L40P9zn8nZqdv_fJERBU9vviTH-ROzE-97nDdXTKjUy7XWWSoRmgAhCiIQA=",
+        "status": "incomplete",
+        "totalResults": 10
+    },
+    "destinationImageUrl": "https://content.skyscnr.com/m/3719e8f4a5daf43d/original/Flights-Placeholder.jpg",
+    "filterStats": {
+        "airports": [
+            {
+                "airports": [
+                    {
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "name": "New Orleans Louis Armstrong"
+                    }
+                ],
+                "city": "New Orleans"
+            },
+            {
+                "airports": [
+                    {
+                        "entityId": "95565041",
+                        "id": "CDG",
+                        "name": "Paris Charles de Gaulle"
+                    },
+                    {
+                        "entityId": "95565040",
+                        "id": "ORY",
+                        "name": "Paris Orly"
+                    }
+                ],
+                "city": "Paris"
+            }
+        ],
+        "carriers": [
+            {
+                "alternateId": "TX",
+                "id": -32693,
+                "name": "Air Caraibes"
+            },
+            {
+                "alternateId": "AF",
+                "id": -32677,
+                "name": "Air France"
+            },
+            {
+                "alternateId": "DL",
+                "id": -32385,
+                "name": "Delta"
+            },
+            {
+                "alternateId": "BF",
+                "id": -30858,
+                "name": "French Bee"
+            },
+            {
+                "alternateId": "F9",
+                "id": -32289,
+                "name": "Frontier Airlines"
+            },
+            {
+                "alternateId": "B6",
+                "id": -32171,
+                "name": "jetBlue"
+            },
+            {
+                "alternateId": "KL",
+                "id": -32132,
+                "name": "KLM"
+            },
+            {
+                "alternateId": "9~",
+                "id": -30667,
+                "name": "Norse Atlantic Airways"
+            },
+            {
+                "alternateId": "NK",
+                "id": -31825,
+                "name": "Spirit Airlines"
+            },
+            {
+                "alternateId": "VS",
+                "id": -31697,
+                "name": "Virgin Atlantic"
+            }
+        ],
+        "duration": {
+            "max": 1990,
+            "min": 763,
+            "multiCityMax": 1990,
+            "multiCityMin": 763
+        },
+        "stopPrices": {
+            "direct": {
+                "formattedPrice": "",
+                "isPresent": false
+            },
+            "one": {
+                "formattedPrice": "$406",
+                "isPresent": true
+            },
+            "twoOrMore": {
+                "formattedPrice": "$405",
+                "isPresent": true
+            }
+        }
+    },
+    "flightsSessionId": "9c177b05-68b1-4aa2-8a9d-63fb0a3af76b",
+    "itineraries": [
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "10413-2505071540--31697-1-14355-2505072123",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": false,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-07T21:23:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "VS",
+                                "id": -31697,
+                                "name": "Virgin Atlantic"
+                            }
+                        ],
+                        "operationType": "not_operated"
+                    },
+                    "departure": "2025-05-07T15:40:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 763,
+                    "id": "10413-2505071540--31697-1-14355-2505072123",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "CDG",
+                        "entityId": "95565041",
+                        "id": "CDG",
+                        "isHighlighted": false,
+                        "name": "Paris Charles de Gaulle"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T19:25:00",
+                            "departure": "2025-05-07T15:40:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 585,
+                            "flightNumber": "3997",
+                            "id": "10413-9596-2505071540-2505071925--31697",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "VS",
+                                "displayCode": "",
+                                "id": -31697,
+                                "name": "Virgin Atlantic"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "CDG",
+                                "flightPlaceId": "CDG",
+                                "name": "Paris Charles de Gaulle",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-07T21:23:00",
+                            "departure": "2025-05-07T20:55:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 88,
+                            "flightNumber": "5199",
+                            "id": "9596-14355-2505072055-2505072123--31697",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "VS",
+                                "displayCode": "",
+                                "id": -31697,
+                                "name": "Virgin Atlantic"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 1,
+                    "timeDeltaInDays": 0
+                }
+            ],
+            "price": {
+                "formatted": "$1,463",
+                "pricingOptionId": "ZIyqmRJSaSor",
+                "raw": 1462.98
+            },
+            "score": 0.599543,
+            "tags": [
+                "shortest"
+            ]
+        },
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "10413-2505071540--32132-1-14355-2505072123",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": false,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-07T21:23:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "KL",
+                                "id": -32132,
+                                "name": "KLM"
+                            }
+                        ],
+                        "operationType": "not_operated"
+                    },
+                    "departure": "2025-05-07T15:40:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 763,
+                    "id": "10413-2505071540--32132-1-14355-2505072123",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "CDG",
+                        "entityId": "95565041",
+                        "id": "CDG",
+                        "isHighlighted": false,
+                        "name": "Paris Charles de Gaulle"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T19:25:00",
+                            "departure": "2025-05-07T15:40:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 585,
+                            "flightNumber": "6100",
+                            "id": "10413-9596-2505071540-2505071925--32132",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "KL",
+                                "displayCode": "",
+                                "id": -32132,
+                                "name": "KLM"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "CDG",
+                                "flightPlaceId": "CDG",
+                                "name": "Paris Charles de Gaulle",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-07T21:23:00",
+                            "departure": "2025-05-07T20:55:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 88,
+                            "flightNumber": "5248",
+                            "id": "9596-14355-2505072055-2505072123--32132",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "KL",
+                                "displayCode": "",
+                                "id": -32132,
+                                "name": "KLM"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 1,
+                    "timeDeltaInDays": 0
+                }
+            ],
+            "price": {
+                "formatted": "$1,471",
+                "pricingOptionId": "n1PGg1Hxeyf7",
+                "raw": 1470.58
+            },
+            "score": 0.597731,
+            "tags": [
+                "second_shortest"
+            ]
+        },
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "15083-2505071850--30858,-32171-1-14355-2505080958",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": true,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-08T09:58:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "BF",
+                                "id": -30858,
+                                "name": "French Bee"
+                            },
+                            {
+                                "alternateId": "B6",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            }
+                        ],
+                        "operationType": "fully_operated"
+                    },
+                    "departure": "2025-05-07T18:50:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 1328,
+                    "id": "15083-2505071850--30858,-32171-1-14355-2505080958",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "ORY",
+                        "entityId": "95565040",
+                        "id": "ORY",
+                        "isHighlighted": false,
+                        "name": "Paris Orly"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T21:00:00",
+                            "departure": "2025-05-07T18:50:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "EWR",
+                                "flightPlaceId": "EWR",
+                                "name": "New York Newark",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 490,
+                            "flightNumber": "720",
+                            "id": "15083-11442-2505071850-2505072100--30858",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "BF",
+                                "displayCode": "",
+                                "id": -30858,
+                                "name": "French Bee"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "BF",
+                                "displayCode": "",
+                                "id": -30858,
+                                "name": "French Bee"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "ORY",
+                                "flightPlaceId": "ORY",
+                                "name": "Paris Orly",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-08T09:58:00",
+                            "departure": "2025-05-08T07:38:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 200,
+                            "flightNumber": "75",
+                            "id": "12712-14355-2505080738-2505080958--32171",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "B6",
+                                "displayCode": "",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "B6",
+                                "displayCode": "",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "JFK",
+                                "flightPlaceId": "JFK",
+                                "name": "New York John F. Kennedy",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 1,
+                    "timeDeltaInDays": 1
+                }
+            ],
+            "price": {
+                "formatted": "$680",
+                "pricingOptionId": "g_EqKDFGtCAa",
+                "raw": 679.8
+            },
+            "score": 0.514986
+        },
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "10413-2505071540--32677-1-14355-2505072331",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": false,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-07T23:31:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "AF",
+                                "id": -32677,
+                                "name": "Air France"
+                            }
+                        ],
+                        "operationType": "not_operated"
+                    },
+                    "departure": "2025-05-07T15:40:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 891,
+                    "id": "10413-2505071540--32677-1-14355-2505072331",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "CDG",
+                        "entityId": "95565041",
+                        "id": "CDG",
+                        "isHighlighted": false,
+                        "name": "Paris Charles de Gaulle"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T19:25:00",
+                            "departure": "2025-05-07T15:40:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 585,
+                            "flightNumber": "8984",
+                            "id": "10413-9596-2505071540-2505071925--32677",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "AF",
+                                "displayCode": "",
+                                "id": -32677,
+                                "name": "Air France"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "CDG",
+                                "flightPlaceId": "CDG",
+                                "name": "Paris Charles de Gaulle",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-07T23:31:00",
+                            "departure": "2025-05-07T22:59:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 92,
+                            "flightNumber": "2344",
+                            "id": "9596-14355-2505072259-2505072331--32677",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "AF",
+                                "displayCode": "",
+                                "id": -32677,
+                                "name": "Air France"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "DL",
+                                "displayCode": "",
+                                "id": -32385,
+                                "name": "Delta"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 1,
+                    "timeDeltaInDays": 0
+                }
+            ],
+            "price": {
+                "formatted": "$1,471",
+                "pricingOptionId": "60dp6WqTUOAI",
+                "raw": 1470.58
+            },
+            "score": 0.514279,
+            "tags": [
+                "third_shortest"
+            ]
+        },
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "15083-2505071850--32693,-32171-1-14355-2505080958",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": true,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-08T09:58:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "TX",
+                                "id": -32693,
+                                "name": "Air Caraibes"
+                            },
+                            {
+                                "alternateId": "B6",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            }
+                        ],
+                        "operationType": "partially_operated"
+                    },
+                    "departure": "2025-05-07T18:50:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 1328,
+                    "id": "15083-2505071850--32693,-32171-1-14355-2505080958",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "ORY",
+                        "entityId": "95565040",
+                        "id": "ORY",
+                        "isHighlighted": false,
+                        "name": "Paris Orly"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T21:00:00",
+                            "departure": "2025-05-07T18:50:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "EWR",
+                                "flightPlaceId": "EWR",
+                                "name": "New York Newark",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 490,
+                            "flightNumber": "6720",
+                            "id": "15083-11442-2505071850-2505072100--32693",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "TX",
+                                "displayCode": "",
+                                "id": -32693,
+                                "name": "Air Caraibes"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "BF",
+                                "displayCode": "",
+                                "id": -30858,
+                                "name": "French Bee"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "ORY",
+                                "flightPlaceId": "ORY",
+                                "name": "Paris Orly",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-08T09:58:00",
+                            "departure": "2025-05-08T07:38:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 200,
+                            "flightNumber": "75",
+                            "id": "12712-14355-2505080738-2505080958--32171",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "B6",
+                                "displayCode": "",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "B6",
+                                "displayCode": "",
+                                "id": -32171,
+                                "name": "jetBlue"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "JFK",
+                                "flightPlaceId": "JFK",
+                                "name": "New York John F. Kennedy",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 1,
+                    "timeDeltaInDays": 1
+                }
+            ],
+            "price": {
+                "formatted": "$680",
+                "pricingOptionId": "0a_uE3xaQ8dI",
+                "raw": 679.4
+            },
+            "score": 0.510845
+        },
+        {
+            "fareAttributes": {},
+            "farePolicy": {
+                "isCancellationAllowed": false,
+                "isChangeAllowed": false,
+                "isPartiallyChangeable": false,
+                "isPartiallyRefundable": false
+            },
+            "hasFlexibleOptions": false,
+            "id": "10413-2505071640--30667,-31825-2-14355-2505080917",
+            "isMashUp": false,
+            "isProtectedSelfTransfer": true,
+            "isSelfTransfer": false,
+            "legs": [
+                {
+                    "arrival": "2025-05-08T09:17:00",
+                    "carriers": {
+                        "marketing": [
+                            {
+                                "alternateId": "9~",
+                                "id": -30667,
+                                "name": "Norse Atlantic Airways"
+                            },
+                            {
+                                "alternateId": "NK",
+                                "id": -31825,
+                                "name": "Spirit Airlines"
+                            }
+                        ],
+                        "operationType": "fully_operated"
+                    },
+                    "departure": "2025-05-07T16:40:00",
+                    "destination": {
+                        "city": "New Orleans",
+                        "country": "United States",
+                        "displayCode": "MSY",
+                        "entityId": "95673750",
+                        "id": "MSY",
+                        "isHighlighted": false,
+                        "name": "New Orleans Louis Armstrong"
+                    },
+                    "durationInMinutes": 1417,
+                    "id": "10413-2505071640--30667,-31825-2-14355-2505080917",
+                    "isSmallestStops": false,
+                    "origin": {
+                        "city": "Paris",
+                        "country": "France",
+                        "displayCode": "CDG",
+                        "entityId": "95565041",
+                        "id": "CDG",
+                        "isHighlighted": false,
+                        "name": "Paris Charles de Gaulle"
+                    },
+                    "segments": [
+                        {
+                            "arrival": "2025-05-07T19:05:00",
+                            "departure": "2025-05-07T16:40:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "LAX",
+                                "flightPlaceId": "LAX",
+                                "name": "Los Angeles International",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 685,
+                            "flightNumber": "311",
+                            "id": "10413-13416-2505071640-2505071905--30667",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "9~",
+                                "displayCode": "",
+                                "id": -30667,
+                                "name": "Norse Atlantic Airways"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "9~",
+                                "displayCode": "",
+                                "id": -30667,
+                                "name": "Norse Atlantic Airways"
+                            },
+                            "origin": {
+                                "country": "France",
+                                "displayCode": "CDG",
+                                "flightPlaceId": "CDG",
+                                "name": "Paris Charles de Gaulle",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-08T06:33:00",
+                            "departure": "2025-05-07T23:10:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 263,
+                            "flightNumber": "2403",
+                            "id": "13416-9596-2505072310-2505080633--31825",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "NK",
+                                "displayCode": "",
+                                "id": -31825,
+                                "name": "Spirit Airlines"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "NK",
+                                "displayCode": "",
+                                "id": -31825,
+                                "name": "Spirit Airlines"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "LAX",
+                                "flightPlaceId": "LAX",
+                                "name": "Los Angeles International",
+                                "type": "Airport"
+                            }
+                        },
+                        {
+                            "arrival": "2025-05-08T09:17:00",
+                            "departure": "2025-05-08T08:45:00",
+                            "destination": {
+                                "country": "United States",
+                                "displayCode": "MSY",
+                                "flightPlaceId": "MSY",
+                                "name": "New Orleans Louis Armstrong",
+                                "type": "Airport"
+                            },
+                            "durationInMinutes": 92,
+                            "flightNumber": "2709",
+                            "id": "9596-14355-2505080845-2505080917--31825",
+                            "marketingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "NK",
+                                "displayCode": "",
+                                "id": -31825,
+                                "name": "Spirit Airlines"
+                            },
+                            "operatingCarrier": {
+                                "allianceId": 0,
+                                "alternateId": "NK",
+                                "displayCode": "",
+                                "id": -31825,
+                                "name": "Spirit Airlines"
+                            },
+                            "origin": {
+                                "country": "United States",
+                                "displayCode": "ATL",
+                                "flightPlaceId": "ATL",
+                                "name": "Atlanta Hartsfield-Jackson",
+                                "type": "Airport"
+                            }
+                        }
+                    ],
+                    "stopCount": 2,
+                    "timeDeltaInDays": 1
+                }
+            ],
+            "price": {
+                "formatted": "$644",
+                "pricingOptionId": "3H-TQx45ZqWV",
+                "raw": 644
+            },
+            "score": 0.504454,
+            "tags": [
+                "third_cheapest"
+            ]
+        }
+    ],
+    "messages": [],
+    "token": "eyJhIjoxLCJjIjowLCJpIjowLCJjYyI6ImVjb25vbXkiLCJvIjoiUEFSSSIsImQiOiJNU1lBIiwiZDEiOiIyMDI1LTA1LTA3In0="
+}

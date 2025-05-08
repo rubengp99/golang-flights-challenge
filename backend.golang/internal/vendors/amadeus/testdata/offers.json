@@ -1,0 +1,485 @@
+[
+    {
+        "airline": {
+            "businessName": "",
+            "iataCode": "",
+            "icaoCode": "",
+            "type": ""
+        },
+        "id": "1",
+        "instantTicketingRequired": false,
+        "isUpsellOffer": false,
+        "itineraries": [
+            {
+                "duration": "PT9H20M",
+                "segments": [
+                    {
+                        "aircraft": {
+                            "code": "359"
+                        },
+                        "arrival": {
+                            "at": "2025-05-09T16:20:00",
+                            "iataCode": "BKK",
+                            "terminal": ""
+                        },
+                        "blacklistedInEU": false,
+                        "carrierCode": "TG",
+                        "departure": {
+                            "at": "2025-05-09T10:00:00",
+                            "iataCode": "SYD",
+                            "terminal": "1"
+                        },
+                        "duration": "PT9H20M",
+                        "id": "1",
+                        "number": "476",
+                        "numberOfStops": 0,
+                        "operating": {
+                            "carrierCode": "TG"
+                        }
+                    }
+                ]
+            }
+        ],
+        "lastTicketingDate": "2025-05-09",
+        "lastTicketingDateTime": "2025-05-09",
+        "nonHomogeneous": false,
+        "numberOfBookableSeats": 9,
+        "oneWay": false,
+        "price": {
+            "additionalServices": null,
+            "base": "261.00",
+            "currency": "USD",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "337.10",
+            "total": "337.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "source": "GDS",
+        "travelerPricings": [
+            {
+                "fareDetailsBySegment": [
+                    {
+                        "amenities": [
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BAGGAGE",
+                                "description": "EXTRA BAGGAGE PER ONE KILOGRAM",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "MEAL",
+                                "description": "HOT MEAL",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "TRAVEL_SERVICES",
+                                "description": "NAME CORRECTION",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "BASIC SEAT",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "CHANGEABLE TICKET",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "25 PERCENT MILES EARNED",
+                                "isChargeable": false
+                            }
+                        ],
+                        "brandedFare": "ECOSV1",
+                        "brandedFareLabel": "ECOSAVE1",
+                        "cabin": "ECONOMY",
+                        "class": "W",
+                        "fareBasis": "WLOSV7D",
+                        "includedCabinBags": {
+                            "quantity": 0
+                        },
+                        "includedCheckedBags": {
+                            "quantity": 0
+                        },
+                        "segmentId": "1"
+                    }
+                ],
+                "fareOption": "STANDARD",
+                "price": {
+                    "base": "261.00",
+                    "currency": "USD",
+                    "total": "337.10"
+                },
+                "travelerId": "1",
+                "travelerType": "ADULT"
+            }
+        ],
+        "type": "flight-offer",
+        "validatingAirlineCodes": [
+            "TG"
+        ]
+    },
+    {
+        "airline": {
+            "businessName": "",
+            "iataCode": "",
+            "icaoCode": "",
+            "type": ""
+        },
+        "id": "2",
+        "instantTicketingRequired": false,
+        "isUpsellOffer": false,
+        "itineraries": [
+            {
+                "duration": "PT9H20M",
+                "segments": [
+                    {
+                        "aircraft": {
+                            "code": "359"
+                        },
+                        "arrival": {
+                            "at": "2025-05-09T21:10:00",
+                            "iataCode": "BKK",
+                            "terminal": ""
+                        },
+                        "blacklistedInEU": false,
+                        "carrierCode": "TG",
+                        "departure": {
+                            "at": "2025-05-09T14:50:00",
+                            "iataCode": "SYD",
+                            "terminal": "1"
+                        },
+                        "duration": "PT9H20M",
+                        "id": "2",
+                        "number": "472",
+                        "numberOfStops": 0,
+                        "operating": {
+                            "carrierCode": "TG"
+                        }
+                    }
+                ]
+            }
+        ],
+        "lastTicketingDate": "2025-05-09",
+        "lastTicketingDateTime": "2025-05-09",
+        "nonHomogeneous": false,
+        "numberOfBookableSeats": 9,
+        "oneWay": false,
+        "price": {
+            "additionalServices": null,
+            "base": "261.00",
+            "currency": "USD",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "337.10",
+            "total": "337.10"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "source": "GDS",
+        "travelerPricings": [
+            {
+                "fareDetailsBySegment": [
+                    {
+                        "amenities": [
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BAGGAGE",
+                                "description": "EXTRA BAGGAGE PER ONE KILOGRAM",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "PRE_RESERVED_SEAT",
+                                "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "MEAL",
+                                "description": "HOT MEAL",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "TRAVEL_SERVICES",
+                                "description": "NAME CORRECTION",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "BASIC SEAT",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "CHANGEABLE TICKET",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "25 PERCENT MILES EARNED",
+                                "isChargeable": false
+                            }
+                        ],
+                        "brandedFare": "ECOSV1",
+                        "brandedFareLabel": "ECOSAVE1",
+                        "cabin": "ECONOMY",
+                        "class": "W",
+                        "fareBasis": "WLOSV7D",
+                        "includedCabinBags": {
+                            "quantity": 0
+                        },
+                        "includedCheckedBags": {
+                            "quantity": 0
+                        },
+                        "segmentId": "2"
+                    }
+                ],
+                "fareOption": "STANDARD",
+                "price": {
+                    "base": "261.00",
+                    "currency": "USD",
+                    "total": "337.10"
+                },
+                "travelerId": "1",
+                "travelerType": "ADULT"
+            }
+        ],
+        "type": "flight-offer",
+        "validatingAirlineCodes": [
+            "TG"
+        ]
+    },
+    {
+        "airline": {
+            "businessName": "",
+            "iataCode": "",
+            "icaoCode": "",
+            "type": ""
+        },
+        "id": "3",
+        "instantTicketingRequired": false,
+        "isUpsellOffer": false,
+        "itineraries": [
+            {
+                "duration": "PT9H50M",
+                "segments": [
+                    {
+                        "aircraft": {
+                            "code": "333"
+                        },
+                        "arrival": {
+                            "at": "2025-05-09T16:40:00",
+                            "iataCode": "BKK",
+                            "terminal": ""
+                        },
+                        "blacklistedInEU": false,
+                        "carrierCode": "QF",
+                        "departure": {
+                            "at": "2025-05-09T09:50:00",
+                            "iataCode": "SYD",
+                            "terminal": "1"
+                        },
+                        "duration": "PT9H50M",
+                        "id": "3",
+                        "number": "295",
+                        "numberOfStops": 0,
+                        "operating": {
+                            "carrierCode": ""
+                        }
+                    }
+                ]
+            }
+        ],
+        "lastTicketingDate": "2025-05-08",
+        "lastTicketingDateTime": "2025-05-08",
+        "nonHomogeneous": false,
+        "numberOfBookableSeats": 9,
+        "oneWay": false,
+        "price": {
+            "additionalServices": null,
+            "base": "566.00",
+            "currency": "USD",
+            "fees": [
+                {
+                    "amount": "0.00",
+                    "type": "SUPPLIER"
+                },
+                {
+                    "amount": "0.00",
+                    "type": "TICKETING"
+                }
+            ],
+            "grandTotal": "651.30",
+            "total": "651.30"
+        },
+        "pricingOptions": {
+            "fareType": [
+                "PUBLISHED"
+            ],
+            "includedCheckedBagsOnly": true
+        },
+        "source": "GDS",
+        "travelerPricings": [
+            {
+                "fareDetailsBySegment": [
+                    {
+                        "amenities": [
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BAGGAGE",
+                                "description": "PRE PAID BAGGAGE",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BAGGAGE",
+                                "description": "40KG BAGGAGE ALLOWANCE",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BAGGAGE",
+                                "description": "50KG BAGGAGE ALLOWANCE",
+                                "isChargeable": true
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "MEAL",
+                                "description": "COMPLIMENTARY BEVERAGES",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "MEAL",
+                                "description": "MEAL OR SNACK",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "ENTERTAINMENT",
+                                "description": "USB POWER",
+                                "isChargeable": false
+                            },
+                            {
+                                "amenityProvider": {
+                                    "name": "BrandedFare"
+                                },
+                                "amenityType": "BRANDED_FARES",
+                                "description": "STANDARD SEATING",
+                                "isChargeable": false
+                            }
+                        ],
+                        "brandedFare": "ECSV",
+                        "brandedFareLabel": "ECONOMY SAVER",
+                        "cabin": "ECONOMY",
+                        "class": "S",
+                        "fareBasis": "SLATDO",
+                        "includedCabinBags": {
+                            "quantity": 1
+                        },
+                        "includedCheckedBags": {
+                            "quantity": 0
+                        },
+                        "segmentId": "3"
+                    }
+                ],
+                "fareOption": "STANDARD",
+                "price": {
+                    "base": "566.00",
+                    "currency": "USD",
+                    "total": "651.30"
+                },
+                "travelerId": "1",
+                "travelerType": "ADULT"
+            }
+        ],
+        "type": "flight-offer",
+        "validatingAirlineCodes": [
+            "QF"
+        ]
+    }
+]

@@ -29,7 +29,6 @@ type Location struct {
 type MarketingInfo struct {
 	ID          int    `json:"id"`
 	AlternateID string `json:"alternateId"`
-	LogoURL     string `json:"logoUrl"`
 	Name        string `json:"name"`
 }
 
@@ -142,7 +141,6 @@ type AirportLocation struct {
 type Carrier struct {
 	ID          int    `json:"id"`
 	AlternateID string `json:"alternateId"`
-	LogoURL     string `json:"logoUrl"`
 	Name        string `json:"name"`
 }
 

@@ -1,0 +1,14 @@
+[
+    {
+        "businessName": "QANTAS AIRWAYS",
+        "iataCode": "QF",
+        "icaoCode": "QFA",
+        "type": "airline"
+    },
+    {
+        "businessName": "THAI AIRWAYS INTERNATIONAL",
+        "iataCode": "TG",
+        "icaoCode": "THA",
+        "type": "airline"
+    }
+]
