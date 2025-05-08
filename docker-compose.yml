@@ -1,7 +1,7 @@
 services:
   backend:
     build:
-      context: ./backend
+      context: ./backend.golang
       dockerfile: Dockerfile
     ports:
       - "8081:8081"  # Host:Container
@@ -11,7 +11,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend.vuejs
       dockerfile: Dockerfile
     ports:
       - "8080:8080"  # Host:Container

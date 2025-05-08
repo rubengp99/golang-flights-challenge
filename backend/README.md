@@ -1,1 +1,0 @@
-# golang-flights-challenge
