@@ -1,6 +1,9 @@
 package pkg
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // QueryParams represents our API available query parameters for decoding
 type QueryParams struct {
@@ -8,6 +11,11 @@ type QueryParams struct {
 	Adults      string    `json:"adults"`
 	Destination string    `json:"destination"`
 	Date        time.Time `json:"date"`
+}
+
+// Encode generates an encoded query string
+func (q QueryParams) Encode() string {
+	return fmt.Sprintf("origin=%s&adults=%s&destination=%s&date=%s", q.Origin, q.Adults, q.Destination, q.Date)
 }
 
 // Location represents flight location and time

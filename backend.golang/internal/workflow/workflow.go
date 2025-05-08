@@ -8,6 +8,7 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/flightsky"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/googleflights"
+	"github.com/rubengp99/golang-flights-challenge/internal/vendors/redis"
 	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
 
@@ -23,6 +24,16 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 			wg           sync.WaitGroup
 			flightOffers = []pkg.FlightOffer{}
 		)
+
+		id := params.Encode()
+		cachedResponse, err := redis.GetCachedBestFlightResponse(id)
+		if cachedResponse != nil {
+			return *cachedResponse, nil
+		}
+
+		if err != nil {
+			return pkg.GetBestFlightOffersResponse{}, err
+		}
 
 		// retrieve all secrets from infisical
 		retrieveFlightRequests := []func(channel chan error){
@@ -73,6 +84,7 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 			return pkg.GetBestFlightOffersResponse{}, err
 		}
 
-		return mapping.NewBestFlightsOffersResponse(flightOffers...), nil
+		response := mapping.NewBestFlightsOffersResponse(flightOffers...)
+		return response, redis.CacheBestFlightResponse(id, response)
 	}
 }

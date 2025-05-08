@@ -4,18 +4,25 @@ services:
       context: ./backend.golang
       dockerfile: Dockerfile
     ports:
-      - "8081:8081"  # Host:Container
+      - "8081:8081"
     volumes:
-      - ./backend:/app
+      - ./backend.golang:/app
     command: make run
+    depends_on:
+      - redis
 
   frontend:
     build:
       context: ./frontend.vuejs
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"  # Host:Container
+      - "8080:8080"
     volumes:
-      - ./frontend:/app
+      - ./frontend.vuejs:/app
       - /app/node_modules
     command: npm run serve
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"

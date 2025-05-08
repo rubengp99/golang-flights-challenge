@@ -11,6 +11,7 @@ require (
 	github.com/gorilla/schema v1.4.1
 	github.com/infisical/go-sdk v0.5.92
 	github.com/pkg/errors v0.9.1
+	github.com/redis/go-redis/v9 v9.8.0
 	github.com/serpapi/google-search-results-golang v0.0.0-20240325113416-ec93f510648e
 )
 
@@ -32,6 +33,8 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.24.5 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.28.12 // indirect
 	github.com/aws/smithy-go v1.20.2 // indirect
+	github.com/cespare/xxhash/v2 v2.3.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
