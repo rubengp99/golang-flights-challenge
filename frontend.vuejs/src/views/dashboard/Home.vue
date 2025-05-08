@@ -113,6 +113,7 @@ export default {
         return {
             minDate: minDate,
             menu: false,
+            socket: null,
             date: null,
             valid: false,
             quantity: 1,
@@ -217,6 +218,19 @@ export default {
             };
             const token = sessionStorage.getItem("token");
 
+            this.socket = new WebSocket(`ws://${process.env.VUE_APP_BACKEND_URL}/subscribe?origin=${params.origin}&destination=${params.destination}&date=${params.date}&adults=${params.adults}`)
+
+            // subscribe to updates
+            this.socket.onmessage = (e) => {
+                try {
+                    this.flights = e.data
+                    toast.info("Nice, we have some flights updates for you!");
+                } catch (err) {
+                    console.error(err)
+                    toast.error("Something went wrong!");
+                }
+            }
+
             backend().get("flights/search",
                 {
                     params,
@@ -239,6 +253,12 @@ export default {
             this.selectedFlight = item;
             this.dialog = true;
         },
+    },
+    beforeUnmount() {
+        if (this.socket) {
+            this.socket.close();
+            this.socket = null;
+        }
     },
 };
 </script>
