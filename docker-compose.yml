@@ -1,12 +1,10 @@
-version: '3.9'
-
 services:
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"  # Host:Container
     volumes:
       - ./backend:/app
     command: make run
@@ -16,7 +14,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8080:8080"  # Host:Container
     volumes:
       - ./frontend:/app
       - /app/node_modules
