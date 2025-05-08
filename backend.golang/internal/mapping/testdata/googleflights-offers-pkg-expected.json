@@ -1,0 +1,236 @@
+[
+    {
+        "airline": "THAI",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T16:20:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T10:00:00Z"
+        },
+        "durationInMinutes": 560,
+        "flightNumber": "TG 476",
+        "layovers": 0,
+        "price": {
+            "currency": "USD",
+            "value": 339
+        }
+    },
+    {
+        "airline": "THAI",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T21:10:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T14:50:00Z"
+        },
+        "durationInMinutes": 560,
+        "flightNumber": "TG 472",
+        "layovers": 0,
+        "price": {
+            "currency": "USD",
+            "value": 339
+        }
+    },
+    {
+        "airline": "Qantas",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T16:40:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T09:50:00Z"
+        },
+        "durationInMinutes": 590,
+        "flightNumber": "QF 295",
+        "layovers": 0,
+        "price": {
+            "currency": "USD",
+            "value": 437
+        }
+    },
+    {
+        "airline": "Scoot",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T03:10:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T20:45:00Z"
+        },
+        "durationInMinutes": 505,
+        "flightNumber": "TR 13",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 265
+        }
+    },
+    {
+        "airline": "Scoot",
+        "arrival": {
+            "iataCode": "SIN",
+            "timestamp": "2025-05-09T15:35:00Z"
+        },
+        "departure": {
+            "iataCode": "SIN",
+            "timestamp": "2025-05-09T14:05:00Z"
+        },
+        "durationInMinutes": 150,
+        "flightNumber": "TR 628",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 265
+        }
+    },
+    {
+        "airline": "Hainan",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T04:30:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T21:00:00Z"
+        },
+        "durationInMinutes": 570,
+        "flightNumber": "HU 776",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 338
+        }
+    },
+    {
+        "airline": "Hainan",
+        "arrival": {
+            "iataCode": "HAK",
+            "timestamp": "2025-05-09T18:15:00Z"
+        },
+        "departure": {
+            "iataCode": "HAK",
+            "timestamp": "2025-05-09T17:05:00Z"
+        },
+        "durationInMinutes": 130,
+        "flightNumber": "HU 721",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 338
+        }
+    },
+    {
+        "airline": "China Airlines",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T05:40:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T22:10:00Z"
+        },
+        "durationInMinutes": 570,
+        "flightNumber": "CI 52",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 420
+        }
+    },
+    {
+        "airline": "China Airlines",
+        "arrival": {
+            "iataCode": "TPE",
+            "timestamp": "2025-05-09T09:45:00Z"
+        },
+        "departure": {
+            "iataCode": "TPE",
+            "timestamp": "2025-05-09T07:00:00Z"
+        },
+        "durationInMinutes": 225,
+        "flightNumber": "CI 833",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 420
+        }
+    },
+    {
+        "airline": "Qantas",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T16:50:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T10:20:00Z"
+        },
+        "durationInMinutes": 510,
+        "flightNumber": "QF 291",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 723
+        }
+    },
+    {
+        "airline": "Jetstar",
+        "arrival": {
+            "iataCode": "SIN",
+            "timestamp": "2025-05-08T20:40:00Z"
+        },
+        "departure": {
+            "iataCode": "SIN",
+            "timestamp": "2025-05-08T19:15:00Z"
+        },
+        "durationInMinutes": 145,
+        "flightNumber": "3K 513",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 723
+        }
+    },
+    {
+        "airline": "China Southern",
+        "arrival": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T05:25:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-08T21:45:00Z"
+        },
+        "durationInMinutes": 580,
+        "flightNumber": "CZ 302",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 770
+        }
+    },
+    {
+        "airline": "China Southern",
+        "arrival": {
+            "iataCode": "CAN",
+            "timestamp": "2025-05-09T10:20:00Z"
+        },
+        "departure": {
+            "iataCode": "CAN",
+            "timestamp": "2025-05-09T08:15:00Z"
+        },
+        "durationInMinutes": 185,
+        "flightNumber": "CZ 357",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 770
+        }
+    }
+]

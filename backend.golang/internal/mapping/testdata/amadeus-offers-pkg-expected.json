@@ -1,0 +1,56 @@
+[
+    {
+        "airline": "THAI AIRWAYS INTERNATIONAL",
+        "arrival": {
+            "iataCode": "BKK",
+            "timestamp": "2025-05-09T16:20:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T10:00:00Z"
+        },
+        "durationInMinutes": 380,
+        "flightNumber": "476",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 337.1
+        }
+    },
+    {
+        "airline": "THAI AIRWAYS INTERNATIONAL",
+        "arrival": {
+            "iataCode": "BKK",
+            "timestamp": "2025-05-09T21:10:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T14:50:00Z"
+        },
+        "durationInMinutes": 380,
+        "flightNumber": "472",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 337.1
+        }
+    },
+    {
+        "airline": "QANTAS AIRWAYS",
+        "arrival": {
+            "iataCode": "BKK",
+            "timestamp": "2025-05-09T16:40:00Z"
+        },
+        "departure": {
+            "iataCode": "SYD",
+            "timestamp": "2025-05-09T09:50:00Z"
+        },
+        "durationInMinutes": 410,
+        "flightNumber": "295",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 651.3
+        }
+    }
+]

@@ -1,0 +1,182 @@
+[
+    {
+        "airline": "Norse Atlantic Airways",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T17:51:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T16:40:00Z"
+        },
+        "durationInMinutes": 1511,
+        "flightNumber": "311",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 405.99
+        }
+    },
+    {
+        "airline": "Norse Atlantic Airways",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T18:50:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T16:40:00Z"
+        },
+        "durationInMinutes": 1570,
+        "flightNumber": "311",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 404.64
+        }
+    },
+    {
+        "airline": "Delta",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-07T21:23:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T15:40:00Z"
+        },
+        "durationInMinutes": 343,
+        "flightNumber": "85",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 1462.98
+        }
+    },
+    {
+        "airline": "Norse Atlantic Airways",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T09:58:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T20:15:00Z"
+        },
+        "durationInMinutes": 823,
+        "flightNumber": "301",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 675.74
+        }
+    },
+    {
+        "airline": "Virgin Atlantic",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-07T21:23:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T15:40:00Z"
+        },
+        "durationInMinutes": 343,
+        "flightNumber": "3997",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 1462.98
+        }
+    },
+    {
+        "airline": "KLM",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-07T21:23:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T15:40:00Z"
+        },
+        "durationInMinutes": 343,
+        "flightNumber": "6100",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 1470.58
+        }
+    },
+    {
+        "airline": "French Bee",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T09:58:00Z"
+        },
+        "departure": {
+            "iataCode": "ORY",
+            "timestamp": "2025-05-07T18:50:00Z"
+        },
+        "durationInMinutes": 908,
+        "flightNumber": "720",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 679.8
+        }
+    },
+    {
+        "airline": "Air France",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-07T23:31:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T15:40:00Z"
+        },
+        "durationInMinutes": 471,
+        "flightNumber": "8984",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 1470.58
+        }
+    },
+    {
+        "airline": "Air Caraibes",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T09:58:00Z"
+        },
+        "departure": {
+            "iataCode": "ORY",
+            "timestamp": "2025-05-07T18:50:00Z"
+        },
+        "durationInMinutes": 908,
+        "flightNumber": "6720",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 679.4
+        }
+    },
+    {
+        "airline": "Norse Atlantic Airways",
+        "arrival": {
+            "iataCode": "MSY",
+            "timestamp": "2025-05-08T09:17:00Z"
+        },
+        "departure": {
+            "iataCode": "CDG",
+            "timestamp": "2025-05-07T16:40:00Z"
+        },
+        "durationInMinutes": 997,
+        "flightNumber": "311",
+        "layovers": 1,
+        "price": {
+            "currency": "USD",
+            "value": 644
+        }
+    }
+]
