@@ -2,12 +2,14 @@ package app
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"reflect"
 	"time"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/gorilla/schema"
+	"github.com/gorilla/websocket"
 	"github.com/pkg/errors"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/flightsky"
@@ -117,5 +119,57 @@ func LoginHandler(appCreds pkg.CrendetialsRequest, secretKey string) http.Handle
 		}
 
 		serveResponse(newError("Invalid Credentials"), http.StatusUnauthorized, w)
+	})
+}
+
+// SubcribeToFlightOfferUpdatesHandler handles periodic updates to a flight search criteria using websockets
+func SubcribeToFlightOfferUpdatesHandler(googleflightService googleflights.Service,
+	amadeusService amadeus.Service,
+	flightskyService flightsky.Service) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// we need mandatory params in order to subscribe to updates for an specific request
+		var params pkg.QueryParams
+		if err := getQueryParams(&params, r); err != nil {
+			serveResponse(newError(err.Error()), http.StatusInternalServerError, w)
+			return
+		}
+
+		if err := validateBestFlightsParamsRequest(params); err != nil {
+			serveResponse(newError(err.Error()), http.StatusBadRequest, w)
+			return
+		}
+
+		// we need mandatory params in order to subscribe to updates for an specific request
+		var upgrader = websocket.Upgrader{
+			CheckOrigin: func(r *http.Request) bool { return true }, // allow all origins
+		}
+
+		// Upgrade HTTP connection to WebSocket
+		conn, err := upgrader.Upgrade(w, r, nil)
+		if err != nil {
+			log.Println("Upgrade error:", err)
+			return
+		}
+		defer conn.Close()
+
+		ticker := time.NewTicker(30 * time.Second)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+				wf := workflow.RetrieveBestFlights(googleflightService, amadeusService, flightskyService)
+				res, err := wf(params)
+				if err != nil {
+					serveResponse(newError(err.Error()), http.StatusInternalServerError, w)
+					return
+				}
+
+				if err := conn.WriteJSON(res); err != nil {
+					log.Println("Write error:", err)
+					return
+				}
+			}
+		}
 	})
 }

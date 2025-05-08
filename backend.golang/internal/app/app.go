@@ -19,10 +19,11 @@ import (
 
 // App is the representation of all the functionality exposed in this application
 type App struct {
-	LogWriter             io.Writer
-	SecretKey             string
-	GetBestFlightsHandler http.HandlerFunc
-	LoginHandler          http.HandlerFunc
+	LogWriter                           io.Writer
+	SecretKey                           string
+	GetBestFlightsHandler               http.HandlerFunc
+	LoginHandler                        http.HandlerFunc
+	SubcribeToFlightOfferUpdatesHandler http.HandlerFunc
 }
 
 // Options is a type for application options to modify the app
@@ -155,10 +156,11 @@ func New(options ...Options) App {
 	}
 
 	return App{
-		SecretKey:             secretKey,
-		LogWriter:             o.LogWriter,
-		LoginHandler:          LoginHandler(appCredentials, secretKey),
-		GetBestFlightsHandler: RetrieveBestFlightsHandler(googleflightsClient, amadeusClient, flightskyClient),
+		SecretKey:                           secretKey,
+		LogWriter:                           o.LogWriter,
+		LoginHandler:                        LoginHandler(appCredentials, secretKey),
+		GetBestFlightsHandler:               RetrieveBestFlightsHandler(googleflightsClient, amadeusClient, flightskyClient),
+		SubcribeToFlightOfferUpdatesHandler: SubcribeToFlightOfferUpdatesHandler(googleflightsClient, amadeusClient, flightskyClient),
 	}
 }
 
@@ -187,6 +189,7 @@ func (a *App) Handler() http.HandlerFunc {
 	router.Group(func(r chi.Router) {
 		r.Use(newMiddleware(a.LogWriter, a.SecretKey, true).Wrap)
 		r.Get("/flights/search", a.GetBestFlightsHandler)
+		r.Get("/subscribe", a.SubcribeToFlightOfferUpdatesHandler)
 	})
 
 	// no auth required routes
@@ -197,6 +200,7 @@ func (a *App) Handler() http.HandlerFunc {
 
 	router.Options("/flights/search", defaultOptionsHandler)
 	router.Options("/login", defaultOptionsHandler)
+	router.Options("/subscribe", defaultOptionsHandler)
 
 	return router.ServeHTTP
 }
