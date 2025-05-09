@@ -14,7 +14,8 @@ import (
 
 type RetrieveBestFlightsFunc func(params pkg.QueryParams) (pkg.GetBestFlightOffersResponse, error)
 
-func RetrieveBestFlights(googleflightService googleflights.Service,
+func RetrieveBestFlights(redisClient redis.Service,
+	googleflightService googleflights.Service,
 	amadeusService amadeus.Service,
 	flightskyService flightsky.Service) RetrieveBestFlightsFunc {
 	return func(params pkg.QueryParams) (pkg.GetBestFlightOffersResponse, error) {
@@ -26,7 +27,7 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 		)
 
 		id := params.Encode()
-		cachedResponse, err := redis.GetCachedBestFlightResponse(id)
+		cachedResponse, err := redisClient.GetCachedBestFlightResponse(id)
 		if cachedResponse != nil {
 			return *cachedResponse, nil
 		}
@@ -85,6 +86,6 @@ func RetrieveBestFlights(googleflightService googleflights.Service,
 		}
 
 		response := mapping.NewBestFlightsOffersResponse(flightOffers...)
-		return response, redis.CacheBestFlightResponse(id, response)
+		return response, redisClient.CacheBestFlightResponse(id, response)
 	}
 }

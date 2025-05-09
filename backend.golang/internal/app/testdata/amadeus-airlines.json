@@ -1,0 +1,24 @@
+{
+    "meta": {
+      "count": 2,
+      "links": {
+        "self": "https://test.api.amadeus.com/v1/reference-data/airlines?airlineCodes=TG,QF"
+      }
+    },
+    "data": [
+      {
+        "type": "airline",
+        "iataCode": "QF",
+        "icaoCode": "QFA",
+        "businessName": "QANTAS AIRWAYS",
+        "commonName": "QANTAS"
+      },
+      {
+        "type": "airline",
+        "iataCode": "TG",
+        "icaoCode": "THA",
+        "businessName": "THAI AIRWAYS INTERNATIONAL",
+        "commonName": "THAI"
+      }
+    ]
+  }

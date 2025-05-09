@@ -141,6 +141,13 @@ func (s Service) Client() *http.Client {
 
 // RetrieveFlightOffers retrives all available flight offers from google flights
 func (s *Service) RetrieveFlightOffers(params pkg.QueryParams) (FlightOffer, error) {
+	if s.config.Disabled {
+		// TODO:
+		// we might need to disable this client during testing as the library contains hardcoded urls and unnaccesible configs
+		// testing this requires more time
+		return FlightOffer{}, nil
+	}
+
 	var (
 		response APIResponse
 		request  = map[string]string{

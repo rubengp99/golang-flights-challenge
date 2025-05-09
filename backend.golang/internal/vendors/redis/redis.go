@@ -11,27 +11,47 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
 
-var ctx = context.Background()
+// Service provides functionality to interact with redis
+type Service struct {
+	disabled bool
+	ctx      context.Context
+	rdb      *redis.Client
+}
 
-var rdb = redis.NewClient(&redis.Options{
-	Addr: os.Getenv("REDIS_URL"), // service name in docker-compose
-})
+// NewRedisService creates a new redis service
+func NewRedisService(disabled bool) Service {
+	return Service{
+		disabled: disabled,
+		ctx:      context.Background(),
+		rdb: redis.NewClient(&redis.Options{
+			Addr: os.Getenv("REDIS_URL"), // service name in docker-compose
+		}),
+	}
+}
 
 // CacheBestFlightResponse stores best flight response for 30 sec, using the set of params as id
-func CacheBestFlightResponse(searchCriteria string, data pkg.GetBestFlightOffersResponse) error {
+func (s Service) CacheBestFlightResponse(searchCriteria string, data pkg.GetBestFlightOffersResponse) error {
+	if s.disabled {
+		return nil
+	}
+
 	bodyBytes, err := json.Marshal(data)
 	if err != nil {
 		return err
 	}
 
-	return rdb.Set(ctx, searchCriteria, bodyBytes, 30*time.Second).Err()
+	return s.rdb.Set(s.ctx, searchCriteria, bodyBytes, 30*time.Second).Err()
 }
 
 // CacheBestFlightResponse restores best flight response, using the set of params as id
-func GetCachedBestFlightResponse(searchCriteria string) (*pkg.GetBestFlightOffersResponse, error) {
+func (s Service) GetCachedBestFlightResponse(searchCriteria string) (*pkg.GetBestFlightOffersResponse, error) {
+	if s.disabled {
+		return nil, nil
+	}
+
 	var response pkg.GetBestFlightOffersResponse
 
-	bodyBytes, err := rdb.Get(ctx, searchCriteria).Bytes()
+	bodyBytes, err := s.rdb.Get(s.ctx, searchCriteria).Bytes()
 	// means not found
 	if err == redis.Nil {
 		log.Println("no redis cache found")

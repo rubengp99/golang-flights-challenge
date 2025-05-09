@@ -14,6 +14,7 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/flightsky"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/googleflights"
+	"github.com/rubengp99/golang-flights-challenge/internal/vendors/redis"
 	"github.com/rubengp99/golang-flights-challenge/internal/workflow"
 	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
@@ -63,7 +64,8 @@ func createToken(secretKey, clientID string) (string, int64, error) {
 }
 
 // RetrieveBestFlightsHandler handles best flights lookup
-func RetrieveBestFlightsHandler(googleflightService googleflights.Service,
+func RetrieveBestFlightsHandler(redisClient redis.Service,
+	googleflightService googleflights.Service,
 	amadeusService amadeus.Service,
 	flightskyService flightsky.Service) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -78,7 +80,7 @@ func RetrieveBestFlightsHandler(googleflightService googleflights.Service,
 			return
 		}
 
-		wf := workflow.RetrieveBestFlights(googleflightService, amadeusService, flightskyService)
+		wf := workflow.RetrieveBestFlights(redisClient, googleflightService, amadeusService, flightskyService)
 		res, err := wf(params)
 		if err != nil {
 			serveResponse(newError(err.Error()), http.StatusInternalServerError, w)
@@ -123,7 +125,8 @@ func LoginHandler(appCreds pkg.CrendetialsRequest, secretKey string) http.Handle
 }
 
 // SubcribeToFlightOfferUpdatesHandler handles periodic updates to a flight search criteria using websockets
-func SubcribeToFlightOfferUpdatesHandler(googleflightService googleflights.Service,
+func SubcribeToFlightOfferUpdatesHandler(redisClient redis.Service,
+	googleflightService googleflights.Service,
 	amadeusService amadeus.Service,
 	flightskyService flightsky.Service) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -158,7 +161,7 @@ func SubcribeToFlightOfferUpdatesHandler(googleflightService googleflights.Servi
 		for {
 			select {
 			case <-ticker.C:
-				wf := workflow.RetrieveBestFlights(googleflightService, amadeusService, flightskyService)
+				wf := workflow.RetrieveBestFlights(redisClient, googleflightService, amadeusService, flightskyService)
 				res, err := wf(params)
 				if err != nil {
 					serveResponse(newError(err.Error()), http.StatusInternalServerError, w)

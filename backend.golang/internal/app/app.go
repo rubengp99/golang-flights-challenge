@@ -14,6 +14,7 @@ import (
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/amadeus"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/flightsky"
 	"github.com/rubengp99/golang-flights-challenge/internal/vendors/googleflights"
+	"github.com/rubengp99/golang-flights-challenge/internal/vendors/redis"
 	"github.com/rubengp99/golang-flights-challenge/pkg"
 )
 
@@ -35,6 +36,7 @@ type ProvideInfisicalClientFunc func() infisical.InfisicalClientInterface
 type Option struct {
 	LogWriter                  io.Writer
 	ProjectUD                  string
+	DisableRedis               bool
 	TimeProvider               func() time.Time
 	ProvideInfisicalClient     ProvideInfisicalClientFunc
 	ProvideAmadeusConfig       amadeus.ConfigProviderFunc
@@ -75,42 +77,43 @@ func New(options ...Options) App {
 	)
 
 	infisicalClient := o.ProvideInfisicalClient()
+	redisClient := redis.NewRedisService(o.DisableRedis)
 	// retrieve all secrets from infisical
 	secrets := []func(channel chan error){
 		func(channel chan error) {
-			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+			secret, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 				SecretKey:   "JOBSITY_SECRET_KEY",
 				Environment: os.Getenv("STAGE"),
 				ProjectID:   o.ProjectUD,
 				SecretPath:  "/",
 			})
-			secretKey = APIKey.SecretValue
+			secretKey = secret.SecretValue
 			if err != nil {
 				channel <- err
 			}
 			wg.Done()
 		},
 		func(channel chan error) {
-			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+			secret, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 				SecretKey:   "JOBSITY_APP_CLIENT_ID",
 				Environment: os.Getenv("STAGE"),
 				ProjectID:   o.ProjectUD,
 				SecretPath:  "/",
 			})
-			clientID = APIKey.SecretValue
+			clientID = secret.SecretValue
 			if err != nil {
 				channel <- err
 			}
 			wg.Done()
 		},
 		func(channel chan error) {
-			APIKey, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
+			secret, err := infisicalClient.Secrets().Retrieve(infisical.RetrieveSecretOptions{
 				SecretKey:   "JOBSITY_APP_CLIENT_SECRET",
 				Environment: os.Getenv("STAGE"),
 				ProjectID:   o.ProjectUD,
 				SecretPath:  "/",
 			})
-			clientSecret = APIKey.SecretValue
+			clientSecret = secret.SecretValue
 			if err != nil {
 				channel <- err
 			}
@@ -159,8 +162,8 @@ func New(options ...Options) App {
 		SecretKey:                           secretKey,
 		LogWriter:                           o.LogWriter,
 		LoginHandler:                        LoginHandler(appCredentials, secretKey),
-		GetBestFlightsHandler:               RetrieveBestFlightsHandler(googleflightsClient, amadeusClient, flightskyClient),
-		SubcribeToFlightOfferUpdatesHandler: SubcribeToFlightOfferUpdatesHandler(googleflightsClient, amadeusClient, flightskyClient),
+		GetBestFlightsHandler:               RetrieveBestFlightsHandler(redisClient, googleflightsClient, amadeusClient, flightskyClient),
+		SubcribeToFlightOfferUpdatesHandler: SubcribeToFlightOfferUpdatesHandler(redisClient, googleflightsClient, amadeusClient, flightskyClient),
 	}
 }
 

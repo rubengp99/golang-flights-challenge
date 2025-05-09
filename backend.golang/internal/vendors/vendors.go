@@ -20,6 +20,7 @@ const (
 
 // Config represents a generic config/credentials setup for third party integrations
 type Config struct {
+	Disabled     bool
 	BaseURL      string
 	APIKey       string
 	ClientID     string

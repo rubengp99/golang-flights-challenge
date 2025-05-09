@@ -1,5 +1,5 @@
 test:
-	go test -v -failfast ./...
+	go test -failfast ./...
 
 build-local: 
 	go build -o main ./cmd/golang-flights-challenge-local/main.go
