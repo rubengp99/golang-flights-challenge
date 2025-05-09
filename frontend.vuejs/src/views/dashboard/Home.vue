@@ -218,12 +218,13 @@ export default {
             };
             const token = sessionStorage.getItem("token");
 
-            this.socket = new WebSocket(`ws://${process.env.VUE_APP_BACKEND_URL}/subscribe?origin=${params.origin}&destination=${params.destination}&date=${params.date}&adults=${params.adults}`)
+            this.socket = new WebSocket(`ws://${process.env.VUE_APP_SOCKET_URL}/subscribe?origin=${params.origin}&destination=${params.destination}&date=${params.date}&adults=${params.adults}`)
 
             // subscribe to updates
             this.socket.onmessage = (e) => {
                 try {
-                    this.flights = e.data
+                    const data = JSON.parse(e.data);
+                    this.flights = data
                     toast.info("Nice, we have some flights updates for you!");
                 } catch (err) {
                     console.error(err)
