@@ -41,8 +41,8 @@ docker compose up --build
 
 ```bash
 .
-├── backend/       # Go source code and Makefile
-├── frontend/      # Vue.js + Vuetify frontend app
+├── backend.golang/       # Go source code and Makefile
+├── frontend.vuejs/      # Vue.js + Vuetify frontend app
 ├── docker-compose.yml
 └── README.md
 ```
@@ -62,7 +62,7 @@ docker compose up --build
 ### ▶️ Backend (Go)
 
 ```bash
-cd backend
+cd backend.golang
 make run
 ```
 
@@ -72,7 +72,7 @@ Starts on http://localhost:8080. Make sure your .env points to the backend:
 ### 🖼️ Frontend (Vue 3 + Vuetify)
 
 ```bash
-cd frontend
+cd frontend.vuejs
 npm install
 npm run serve
 ```
@@ -95,7 +95,7 @@ new WebSocket("ws://localhost:8081/subscribe?origin=JFK&destination=LAX&date=202
 Mock server and Infisical secrets support are included.
 
 ```bash
-cd backend
+cd backend.golang
 go test ./...
 ```
 
