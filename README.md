@@ -134,9 +134,10 @@ Search flights with:
 ## 📋 Environment Variables
 
 ```bash
-| Name                   | Description                  |
-| ---------------------- | ---------------------------- |
-| `VUE_APP_BACKEND_URL`  | Vue frontend → backend URL   |
-| `AMADEUS_BASE_URL`     | Optional external API source |
-| `FLIGHTS_SKY_BASE_URL` | Optional secondary source    |
+| Name                   | Description                   |
+| ---------------------- | ----------------------------- |
+| `VUE_APP_BACKEND_URL`  | Vue frontend → backend URL    |
+| `REDIS_URL`            | Mandatory external API source |
+| `PROJECT_ID`           | Mandatory secrets manager id  |
+| `INFISICAL_TOKEN`      | Mandatory secrets manager key |
 ```
