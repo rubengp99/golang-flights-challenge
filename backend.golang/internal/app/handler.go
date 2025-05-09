@@ -125,7 +125,8 @@ func LoginHandler(appCreds pkg.CrendetialsRequest, secretKey string) http.Handle
 }
 
 // SubcribeToFlightOfferUpdatesHandler handles periodic updates to a flight search criteria using websockets
-func SubcribeToFlightOfferUpdatesHandler(redisClient redis.Service,
+func SubcribeToFlightOfferUpdatesHandler(secret string,
+	redisClient redis.Service,
 	googleflightService googleflights.Service,
 	amadeusService amadeus.Service,
 	flightskyService flightsky.Service) http.HandlerFunc {
@@ -139,6 +140,11 @@ func SubcribeToFlightOfferUpdatesHandler(redisClient redis.Service,
 
 		if err := validateBestFlightsParamsRequest(params); err != nil {
 			serveResponse(newError(err.Error()), http.StatusBadRequest, w)
+			return
+		}
+
+		if err := verifyToken(secret, params.Token); err != nil {
+			serveResponse(err, http.StatusUnauthorized, w)
 			return
 		}
 

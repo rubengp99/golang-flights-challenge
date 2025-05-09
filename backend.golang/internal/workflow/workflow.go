@@ -71,6 +71,7 @@ func RetrieveBestFlights(redisClient redis.Service,
 		go func() {
 			wg.Wait()
 			close(wgdone)
+			close(errors)
 		}()
 
 		for _, f := range retrieveFlightRequests {
@@ -81,7 +82,6 @@ func RetrieveBestFlights(redisClient redis.Service,
 		case <-wgdone:
 			break
 		case err := <-errors:
-			close(errors)
 			return pkg.GetBestFlightOffersResponse{}, err
 		}
 

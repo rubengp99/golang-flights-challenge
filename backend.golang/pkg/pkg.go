@@ -11,6 +11,7 @@ type QueryParams struct {
 	Adults      string    `json:"adults"`
 	Destination string    `json:"destination"`
 	Date        time.Time `json:"date"`
+	Token       string    `json:"token"`
 }
 
 // Encode generates an encoded query string

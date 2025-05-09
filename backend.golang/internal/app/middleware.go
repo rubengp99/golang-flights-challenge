@@ -78,6 +78,23 @@ func RequestLogger(h http.Handler) http.Handler {
 	})
 }
 
+func verifyToken(secret, tokenStr string) error {
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secret), nil
+	})
+
+	if err != nil {
+		log.Println("verify error", err.Error())
+		return newError(err.Error())
+	}
+
+	if !token.Valid {
+		return newError("Invalid token")
+	}
+
+	return nil
+}
+
 func IsAuthorized(secretKey string) func(h http.Handler) http.Handler {
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -89,21 +106,9 @@ func IsAuthorized(secretKey string) func(h http.Handler) http.Handler {
 
 			tokenStr = tokenStr[len("Bearer "):]
 
-			token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
-				return []byte(secretKey), nil
-			})
-
-			if err != nil {
-				log.Println("verify error", err.Error())
-				werr := newError(err.Error())
-				serveResponse(werr, http.StatusInternalServerError, w)
-				return
-			}
-
-			if !token.Valid {
-				serveResponse(newError("Invalid token"), http.StatusUnauthorized, w)
+			if err := verifyToken(secretKey, tokenStr); err != nil {
+				serveResponse(err, http.StatusUnauthorized, w)
 				w.WriteHeader(http.StatusUnauthorized)
-				return
 			}
 
 			log.Println("Welcome to the the protected area")

@@ -218,7 +218,7 @@ export default {
             };
             const token = sessionStorage.getItem("token");
 
-            this.socket = new WebSocket(`ws://${process.env.VUE_APP_SOCKET_URL}/subscribe?origin=${params.origin}&destination=${params.destination}&date=${params.date}&adults=${params.adults}`)
+            this.socket = new WebSocket(`ws://${process.env.VUE_APP_SOCKET_URL}/subscribe?origin=${params.origin}&destination=${params.destination}&date=${params.date}&adults=${params.adults}&token=${token}`)
 
             // subscribe to updates
             this.socket.onmessage = (e) => {

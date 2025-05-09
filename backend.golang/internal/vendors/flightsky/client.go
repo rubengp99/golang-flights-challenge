@@ -74,6 +74,7 @@ func DefaultConfigFromSecretsManager() ConfigProviderFunc {
 		go func() {
 			wg.Wait()
 			close(wgdone)
+			close(errors)
 		}()
 
 		for _, f := range secrets {
@@ -84,7 +85,6 @@ func DefaultConfigFromSecretsManager() ConfigProviderFunc {
 		case <-wgdone:
 			break
 		case err := <-errors:
-			close(errors)
 			// we cannot proceed after this point, so we panic
 			panic(err)
 		}

@@ -137,6 +137,7 @@ func New(options ...Options) App {
 	go func() {
 		wg.Wait()
 		close(wgdone)
+		close(errors)
 	}()
 
 	for _, f := range secrets {
@@ -147,7 +148,6 @@ func New(options ...Options) App {
 	case <-wgdone:
 		break
 	case err := <-errors:
-		close(errors)
 		// we cannot proceed after this point, so we panic
 		panic(err)
 	}
@@ -163,7 +163,7 @@ func New(options ...Options) App {
 		LogWriter:                           o.LogWriter,
 		LoginHandler:                        LoginHandler(appCredentials, secretKey),
 		GetBestFlightsHandler:               RetrieveBestFlightsHandler(redisClient, googleflightsClient, amadeusClient, flightskyClient),
-		SubcribeToFlightOfferUpdatesHandler: SubcribeToFlightOfferUpdatesHandler(redisClient, googleflightsClient, amadeusClient, flightskyClient),
+		SubcribeToFlightOfferUpdatesHandler: SubcribeToFlightOfferUpdatesHandler(secretKey, redisClient, googleflightsClient, amadeusClient, flightskyClient),
 	}
 }
 
@@ -192,13 +192,14 @@ func (a *App) Handler() http.HandlerFunc {
 	router.Group(func(r chi.Router) {
 		r.Use(newMiddleware(a.LogWriter, a.SecretKey, true).Wrap)
 		r.Get("/flights/search", a.GetBestFlightsHandler)
-		r.Get("/subscribe", a.SubcribeToFlightOfferUpdatesHandler)
 	})
 
 	// no auth required routes
 	router.Group(func(r chi.Router) {
 		r.Use(newMiddleware(a.LogWriter, a.SecretKey, false).Wrap)
 		r.Post("/login", a.LoginHandler)
+		// sockets don't have headers, so this one will check token through query params
+		r.Get("/subscribe", a.SubcribeToFlightOfferUpdatesHandler)
 	})
 
 	router.Options("/flights/search", defaultOptionsHandler)
